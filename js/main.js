@@ -4,7 +4,10 @@ const getRandomValue = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
+getRandomValue();
+
 function getRandomArbitrary(min, max, simbols) {
   return (Math.random() * (max - min + 1) + min).toFixed(simbols);
 }
 
+getRandomArbitrary();
