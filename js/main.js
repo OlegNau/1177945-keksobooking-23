@@ -8,6 +8,6 @@ getRandomInteger();
 
 const getRandomFractionNumber = function (min, max, fractionalPart) {
   return Number(Math.random() * (max - min + 1) + min).toFixed(fractionalPart);
-}
+};
 
 getRandomFractionNumber();
