@@ -7,7 +7,7 @@ const getRandomInteger = function (min, max) {
 getRandomInteger();
 
 const getRandomFractionNumber = function (min, max, fractionalPart) {
-  return Number(Math.random() * (max - min + 1) + min).toFixed(fractionalPart);
+  return +((Math.random() * (max - min + 1) + min).toFixed(fractionalPart));
 };
 
 getRandomFractionNumber();
