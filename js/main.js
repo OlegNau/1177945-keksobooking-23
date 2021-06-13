@@ -73,41 +73,33 @@ const quantityAvatars = {
   MAX: 8,
 };
 
-const getRandomArrayElement = function (elements) {
-  return elements[getRandomInteger(0, elements.length -1)];
-};
+const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length -1)];
 
-const crateLocation = function() {
-  return {
-    lat: getRandomFractionNumber(LOCATION_RANGE_LAT.MIN, LOCATION_RANGE_LAT.MAX, 5),
-    lng: getRandomFractionNumber(LOCATION_RANGE_LNG.MIN, LOCATION_RANGE_LNG.MAX, 5),
-  };
-};
+const crateLocation = () => ({
+  lat: getRandomFractionNumber(LOCATION_RANGE_LAT.MIN, LOCATION_RANGE_LAT.MAX, 5),
+  lng: getRandomFractionNumber(LOCATION_RANGE_LNG.MIN, LOCATION_RANGE_LNG.MAX, 5),
+});
 
-const createAvatar = function(number) {
-  return {
-    avatar: `img/avatars/user0${number}.png`,
-  };
-};
+const createAvatar = (number) => ({
+  avatar: `img/avatars/user0${number}.png`,
+});
 
 
-const createOffer = function(location) {
-  return {
-    title: getRandomArrayElement(TITLES),
-    adress: `${location.lat}, ${location.lng}`,
-    price: getRandomInteger(1000, 5000),
-    type: getRandomArrayElement(TYPE),
-    rooms: getRandomInteger(1, 4),
-    guests: getRandomInteger(1, 4),
-    checkin: getRandomArrayElement(CHECK),
-    checkout: getRandomArrayElement(CHECK),
-    features: getRandomArrayElement(FEATURES),
-    description: getRandomArrayElement(DESCRIPTION),
-    photos: getRandomArrayElement(PHOTOS),
-  };
-};
+const createOffer = (location) => ({
+  title: getRandomArrayElement(TITLES),
+  adress: `${location.lat}, ${location.lng}`,
+  price: getRandomInteger(1000, 5000),
+  type: getRandomArrayElement(TYPE),
+  rooms: getRandomInteger(1, 4),
+  guests: getRandomInteger(1, 4),
+  checkin: getRandomArrayElement(CHECK),
+  checkout: getRandomArrayElement(CHECK),
+  features: getRandomArrayElement(FEATURES),
+  description: getRandomArrayElement(DESCRIPTION),
+  photos: getRandomArrayElement(PHOTOS),
+});
 
-const createAdvert = function() {
+const createAdvert = () => {
   const location = crateLocation();
   return {
     author: createAvatar(getRandomInteger(quantityAvatars.MIN, quantityAvatars.MAX)),
