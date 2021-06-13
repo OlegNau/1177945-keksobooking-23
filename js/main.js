@@ -4,13 +4,9 @@ const getRandomInteger = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-getRandomInteger();
-
 const getRandomFractionNumber = function (min, max, fractionalPart) {
   return +((Math.random() * (max - min + 1) + min).toFixed(fractionalPart));
 };
-
-getRandomFractionNumber();
 
 const SIMILAR_ADVERTS_COUNT = 10;
 
@@ -77,28 +73,28 @@ const quantityAvatars = {
   MAX: 8,
 };
 
-const getRandomArrayElement = (elements) => {
+const getRandomArrayElement = function (elements) {
   return elements[getRandomInteger(0, elements.length -1)];
 };
 
-const createAdvert = () => {
+const crateLocation = function() {
   return {
-    author: createAvatar(getRandomInteger(quantityAvatars.MIN, quantityAvatars.MAX)),
-    offer: createOffer(),
-    location: crateLocation(),
+    lat: getRandomFractionNumber(LOCATION_RANGE_LAT.MIN, LOCATION_RANGE_LAT.MAX, 5),
+    lng: getRandomFractionNumber(LOCATION_RANGE_LNG.MIN, LOCATION_RANGE_LNG.MAX, 5),
   };
 };
 
-const createAvatar = (number) => {
+const createAvatar = function(number) {
   return {
-    avatar: 'img/avatars/user0' + (number) + '.png'
+    avatar: `img/avatars/user0${number}.png`,
   };
 };
 
-const createOffer = () => {
+
+const createOffer = function(location) {
   return {
     title: getRandomArrayElement(TITLES),
-    adress: (location.x, location.y),
+    adress: `${location.lat}, ${location.lng}`,
     price: getRandomInteger(1000, 5000),
     type: getRandomArrayElement(TYPE),
     rooms: getRandomInteger(1, 4),
@@ -107,17 +103,20 @@ const createOffer = () => {
     checkout: getRandomArrayElement(CHECK),
     features: getRandomArrayElement(FEATURES),
     description: getRandomArrayElement(DESCRIPTION),
-    photos: getRandomArrayElement(PHOTOS)
+    photos: getRandomArrayElement(PHOTOS),
   };
 };
 
-const crateLocation = () => {
+const createAdvert = function() {
+  const location = crateLocation();
   return {
-    lat: getRandomFractionNumber(LOCATION_RANGE_LAT.MIN, LOCATION_RANGE_LAT.MAX, 5),
-    lng: getRandomFractionNumber(LOCATION_RANGE_LNG.MIN, LOCATION_RANGE_LNG.MAX, 5)
+    author: createAvatar(getRandomInteger(quantityAvatars.MIN, quantityAvatars.MAX)),
+    offer: createOffer(location),
+    location: location,
   };
 };
 
 const similarAdvert = new Array(SIMILAR_ADVERTS_COUNT).fill(null).map(() => createAdvert());
 
+// eslint-disable-next-line
 console.log(similarAdvert);
