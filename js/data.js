@@ -1,4 +1,4 @@
-import {getRandomInteger, getRandomFractionNumber} from './util.js';
+import {getRandomInteger, getRandomFractionNumber, getRandomArrayElement} from './util.js';
 
 const SIMILAR_ADVERTS_COUNT = 10;
 
@@ -65,8 +65,6 @@ const quantityAvatars = {
   MAX: 8,
 };
 
-const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length -1)];
-
 const crateLocation = () => ({
   lat: getRandomFractionNumber(LOCATION_RANGE_LAT.MIN, LOCATION_RANGE_LAT.MAX, 5),
   lng: getRandomFractionNumber(LOCATION_RANGE_LNG.MIN, LOCATION_RANGE_LNG.MAX, 5),
@@ -102,5 +100,4 @@ const createAdvert = () => {
 
 const similarAdvert = new Array(SIMILAR_ADVERTS_COUNT).fill(null).map(() => createAdvert());
 
-// eslint-disable-next-line
-console.log(similarAdvert);
+export{similarAdvert};

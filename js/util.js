@@ -8,4 +8,6 @@ const getRandomFractionNumber = function (min, max, fractionalPart) {
   return +((Math.random() * (max - min + 1) + min).toFixed(fractionalPart));
 };
 
-export{getRandomInteger, getRandomFractionNumber};
+const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length -1)];
+
+export{getRandomInteger, getRandomFractionNumber, getRandomArrayElement};
