@@ -1,5 +1,5 @@
 import './data.js';
-import './hottels.js';
+import './lodging.js';
 
 // eslint-disable-next-line
 console.log(similarAdvert);
