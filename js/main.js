@@ -5,4 +5,4 @@ import {similarAdverts} from './data.js';
 
 const mapCanvas = document.querySelector('.map__canvas');
 
-mapCanvas.appendChild(createCard(similarAdverts));
+mapCanvas.appendChild(createCard(similarAdverts[0]));
