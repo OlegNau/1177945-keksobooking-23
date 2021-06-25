@@ -17,17 +17,17 @@ function getType(type) {
 }
 
 const createCard = (offerLodging) => {
-  const similarHotel = cardTemplate.cloneNode(true);
-  similarHotel.querySelector('.popup__title').textContent = offerLodging.offer.title;
-  similarHotel.querySelector('.popup__text--address').textContent = offerLodging.offer.address;
-  similarHotel.querySelector('.popup__text--price').textContent = `${offerLodging.offer.price} ₽/ночь`;
-  similarHotel.querySelector('.popup__type').textContent = getType(offerLodging.offer.type);
-  similarHotel.querySelector('.popup__text--capacity').textContent = `${offerLodging.offer.rooms} комнаты для ${offerLodging.offer.guests} гостей`;
-  similarHotel.querySelector('.popup__text--time').textContent = `Заезд после ${offerLodging.offer.checkin}, выезд до ${offerLodging.offer.checkout}`;
-  similarHotel.querySelector('.popup__description').textContent = offerLodging.offer.description;
-  similarHotel.querySelector('.popup__photos').src = offerLodging.offer.photos;
-  similarHotel.querySelector('.popup__avatar').src = offerLodging.author.avatar;
-  return similarHotel;
+  const cardElement = cardTemplate.cloneNode(true);
+  cardElement.querySelector('.popup__title').textContent = offerLodging.offer.title;
+  cardElement.querySelector('.popup__text--address').textContent = offerLodging.offer.address;
+  cardElement.querySelector('.popup__text--price').textContent = `${offerLodging.offer.price} ₽/ночь`;
+  cardElement.querySelector('.popup__type').textContent = getType(offerLodging.offer.type);
+  cardElement.querySelector('.popup__text--capacity').textContent = `${offerLodging.offer.rooms} комнаты для ${offerLodging.offer.guests} гостей`;
+  cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${offerLodging.offer.checkin}, выезд до ${offerLodging.offer.checkout}`;
+  cardElement.querySelector('.popup__description').textContent = offerLodging.offer.description;
+  cardElement.querySelector('.popup__photos').src = offerLodging.offer.photos;
+  cardElement.querySelector('.popup__avatar').src = offerLodging.author.avatar;
+  return cardElement;
 };
 
 export {createCard};
