@@ -2,6 +2,10 @@ const cardTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
+const photoElement = cardTemplate.querySelector('.popup__photo');
+const featureElement = cardTemplate.querySelector('.popup__feature');
+
+
 function getType(type) {
   if (type === 'flat') {
     return 'Квартира';
@@ -16,10 +20,7 @@ function getType(type) {
   }
 }
 
-const addFeatures = (features) => {
-  const featureList = cardTemplate.querySelector('.popup__features');
-  const featureElement = cardTemplate.querySelector('.popup__feature');
-  featureList.removeChild(featureElement);
+const createFeatures = (features) => {
   const fragment = document.createDocumentFragment();
   features.forEach((featuresElement) => {
     const feature = document.createElement('li');
@@ -31,9 +32,6 @@ const addFeatures = (features) => {
 };
 
 const createPhotos = (photoArray) => {
-  const photoList = cardTemplate.querySelector('.popup__photos');
-  const photoElement = cardTemplate.querySelector('.popup__photo');
-  photoList.removeChild(photoElement);
   const fragment = document.createDocumentFragment();
   photoArray.forEach((link) => {
     const photo = document.createElement('img');
@@ -48,8 +46,10 @@ const createPhotos = (photoArray) => {
 };
 
 const createCard = (ad) => {
+  photoElement.remove();
+  featureElement.remove();
   const photoElements = createPhotos(ad.offer.photos);
-  const featuresElements = addFeatures(ad.offer.features);
+  const featuresElements = createFeatures(ad.offer.features);
   const cardElement = cardTemplate.cloneNode(true);
   cardElement.querySelector('.popup__title').textContent = ad.offer.title;
   cardElement.querySelector('.popup__text--address').textContent = ad.offer.address;
