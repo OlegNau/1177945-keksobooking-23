@@ -84,9 +84,9 @@ const createOffer = (location) => ({
   guests: getRandomInteger(1, 4),
   checkin: getRandomArrayElement(CHECK),
   checkout: getRandomArrayElement(CHECK),
-  features: getRandomArrayElement(FEATURES),
+  features: [getRandomArrayElement(FEATURES)],
   description: getRandomArrayElement(DESCRIPTION),
-  photos: getRandomArrayElement(PHOTOS),
+  photos: [getRandomArrayElement(PHOTOS)],
 });
 
 const createAdvert = () => {
