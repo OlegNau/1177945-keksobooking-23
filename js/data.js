@@ -84,9 +84,9 @@ const createOffer = (location) => ({
   guests: getRandomInteger(1, 4),
   checkin: getRandomArrayElement(CHECK),
   checkout: getRandomArrayElement(CHECK),
-  features: getRandomArrayElement(FEATURES),
+  features: [getRandomArrayElement(FEATURES)],
   description: getRandomArrayElement(DESCRIPTION),
-  photos: getRandomArrayElement(PHOTOS),
+  photos: [getRandomArrayElement(PHOTOS)],
 });
 
 const createAdvert = () => {
@@ -98,6 +98,6 @@ const createAdvert = () => {
   };
 };
 
-const similarAdvert = new Array(SIMILAR_ADVERTS_COUNT).fill(null).map(() => createAdvert());
+const similarAdverts = new Array(SIMILAR_ADVERTS_COUNT).fill(null).map(() => createAdvert());
 
-export{similarAdvert};
+export{similarAdverts};
