@@ -2,8 +2,8 @@ const cardTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
-const photoElement = cardTemplate.querySelector('.popup__photo');
-const featureElement = cardTemplate.querySelector('.popup__feature');
+const photoList = cardTemplate.querySelector('.popup__photos');
+const featureList = cardTemplate.querySelector('.popup__features');
 
 
 function getType(type) {
@@ -24,7 +24,7 @@ const createFeatures = (features) => {
   const fragment = document.createDocumentFragment();
   features.forEach((featuresElement) => {
     const feature = document.createElement('li');
-    feature.classList.add('popup__photo');
+    feature.classList.add('popup__feature');
     feature.classList.add(`popup__feature--${featuresElement}`);
     fragment.appendChild(feature);
   });
@@ -46,8 +46,8 @@ const createPhotos = (photoArray) => {
 };
 
 const createCard = (ad) => {
-  photoElement.remove();
-  featureElement.remove();
+  photoList.innerHTML = '';
+  featureList.innerHTML = '';
   const photoElements = createPhotos(ad.offer.photos);
   const featuresElements = createFeatures(ad.offer.features);
   const cardElement = cardTemplate.cloneNode(true);
