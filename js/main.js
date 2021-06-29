@@ -1,5 +1,6 @@
 import './data.js';
 import './lodging.js';
+import './form.js';
 import {createCard} from './lodging.js';
 import {similarAdverts} from './data.js';
 
