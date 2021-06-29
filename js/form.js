@@ -11,7 +11,7 @@ const deactivateForm = () => {
   }
 };
 
-const deactivateMap = () => {
+const deactivateFiltersForm = () => {
   mapFeatures.disabled = true;
   mapFilters.classList.add('.map__filters--disabled');
   for (let index = 0; index < mapFilter.length; index++) {
@@ -26,7 +26,7 @@ const activateForm = () => {
   }
 };
 
-const activateMap = () => {
+const activateFiltersForm = () => {
   mapFilters.classList.remove('.map__filters--disabled');
   mapFeatures.disabled = false;
   for (let index = 0; index < mapFilter.length; index++) {
@@ -35,5 +35,8 @@ const activateMap = () => {
 };
 
 document.addEventListener('load', () => {
-  activateForm();
+  deactivateForm();
+  deactivateFiltersForm();
 });
+
+
