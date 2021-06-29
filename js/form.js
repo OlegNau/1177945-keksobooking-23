@@ -34,9 +34,5 @@ const activateFiltersForm = () => {
   }
 };
 
-document.addEventListener('load', () => {
-  deactivateForm();
-  deactivateFiltersForm();
-});
-
+export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm};
 
