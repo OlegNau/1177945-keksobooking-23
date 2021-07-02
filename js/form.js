@@ -4,6 +4,15 @@ const mapFilters = document.querySelector('.map__filters');
 const mapFilter = mapFilters.querySelectorAll('.map__filter');
 const mapFeatures = mapFilters.querySelector('.map__features');
 
+const roomsNumber = mapFilters.querySelector('#room_number');
+const guestsNumber = mapFilters.querySelector('#capacity');
+const guestRestrictions = {
+  1: [1],
+  2: [1, 2],
+  3: [1, 2, 3],
+  100: [],
+};
+
 const deactivateForm = () => {
   adForm.classList.add('.ad-form--disabled');
   for (let index = 0; index < formFieldset.length; index++) {
@@ -34,5 +43,16 @@ const activateFiltersForm = () => {
   }
 };
 
-export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm};
+const validateGuestNumber = () => {
+  const roomsValue = +roomsNumber.value;
+  const guestsValue = +guestsNumber.value;
+  const availableValues = guestRestrictions[roomsValue];
+  if (availableValues.includes(guestsValue)) {
+    guestsValue.setCustomValidity('');
+  } else {
+    guestsValue.setCustomValidity('Недопустимое количество гостей');
+  }
+};
+
+export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, validateGuestNumber};
 
