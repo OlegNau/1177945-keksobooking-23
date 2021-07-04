@@ -59,14 +59,7 @@ const disableGuestOptions = () => {
   const roomsValue = +roomsNumber.value;
   const availableValues = guestRestrictions[roomsValue];
   Array.from(roomsNumber.options).forEach((option) => {
-    option.disabled = !availableValues.inludes(option.value);
-    if (option.disabled === true) {
-      option.removeAttribute('selected');
-    }
-
-    if (option.disabled === false && (+option.value === 1 || +option.value === 0)) {
-      option.setAttribute('selected', '');
-    }
+    option.disabled = !availableValues.includes(+option.value);
   });
 };
 
