@@ -6,7 +6,7 @@ const mapFeatures = mapFilters.querySelector('.map__features');
 
 const roomsNumber = adForm.querySelector('#room_number');
 const guestsNumber = adForm.querySelector('#capacity');
-const formButton = adForm.querySelector('.ad-form__submit');
+//const formButton = adForm.querySelector('.ad-form__submit');
 const guestRestrictions = {
   1: [1],
   2: [1, 2],
@@ -44,22 +44,22 @@ const activateFiltersForm = () => {
   }
 };
 
-const roomsValue = +roomsNumber.value;
-const guestsValue = +guestsNumber.value;
-const availableValues = guestRestrictions[roomsValue];
-
 const validateGuestNumber = () => {
+  const roomsValue = +roomsNumber.value;
+  const guestsValue = +guestsNumber.value;
+  const availableValues = guestRestrictions[roomsValue];
   if (availableValues.includes(guestsValue)) {
-    guestsValue.setCustomValidity('');
+    guestsNumber.setCustomValidity('');
   } else {
-    guestsValue.setCustomValidity('Недопустимое количество гостей');
+    guestsNumber.setCustomValidity('Недопустимое количество гостей');
   }
 };
 
 const disableGuestOptions = () => {
+  const roomsValue = +roomsNumber.value;
+  const availableValues = guestRestrictions[roomsValue];
   Array.from(roomsNumber.options).forEach((option) => {
     option.disabled = !availableValues.inludes(option.value);
-
     if (option.disabled === true) {
       option.removeAttribute('selected');
     }
