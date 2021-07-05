@@ -1,23 +1,23 @@
 const adForm = document.querySelector('.ad-form');
-const formFieldset = adForm.querySelectorAll('.ad-form__element');
+const formFieldsets = adForm.querySelectorAll('.ad-form__element');
 const mapFilters = document.querySelector('.map__filters');
 const mapFilter = mapFilters.querySelectorAll('.map__filter');
 const mapFeatures = mapFilters.querySelector('.map__features');
 
 const roomsNumber = adForm.querySelector('#room_number');
 const guestsNumber = adForm.querySelector('#capacity');
-//const formButton = adForm.querySelector('.ad-form__submit');
+const formButton = adForm.querySelector('.ad-form__submit');
 const guestRestrictions = {
   1: [1],
   2: [1, 2],
   3: [1, 2, 3],
-  100: [],
+  100: [0],
 };
 
 const deactivateForm = () => {
   adForm.classList.add('.ad-form--disabled');
-  for (let index = 0; index < formFieldset.length; index++) {
-    formFieldset.disabled = true;
+  for (let index = 0; index < formFieldsets.length; index++) {
+    formFieldsets.disabled = true;
   }
 };
 
@@ -31,8 +31,8 @@ const deactivateFiltersForm = () => {
 
 const activateForm = () => {
   adForm.classList.remove('.ad-form--disabled');
-  for (let index = 0; index < formFieldset.length; index++) {
-    formFieldset.disabled = false;
+  for (let index = 0; index < formFieldsets.length; index++) {
+    formFieldsets.disabled = false;
   }
 };
 
@@ -58,7 +58,7 @@ const validateGuestNumber = () => {
 const disableGuestOptions = () => {
   const roomsValue = +roomsNumber.value;
   const availableValues = guestRestrictions[roomsValue];
-  Array.from(roomsNumber.options).forEach((option) => {
+  Array.from(guestsNumber.options).forEach((option) => {
     option.disabled = !availableValues.includes(+option.value);
   });
 };
@@ -72,6 +72,8 @@ roomsNumber.addEventListener('change', () => {
   validateGuestNumber();
   disableGuestOptions();
 });
+
+formButton.addEventListener('click', () => validateGuestNumber());
 
 export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm};
 
