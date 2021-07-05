@@ -1,3 +1,5 @@
+import {changeOptions} from './util.js';
+
 const adForm = document.querySelector('.ad-form');
 const formFieldsets = adForm.querySelectorAll('.ad-form__element');
 const mapFilters = document.querySelector('.map__filters');
@@ -7,11 +9,23 @@ const mapFeatures = mapFilters.querySelector('.map__features');
 const roomsNumber = adForm.querySelector('#room_number');
 const guestsNumber = adForm.querySelector('#capacity');
 const formButton = adForm.querySelector('.ad-form__submit');
+const typeLodging = adForm.querySelector('#type');
+const priceLidging = adForm.querySelector('#price');
+const timeIn = adForm.querySelector('#timein');
+const timeOut = adForm.querySelector('#timeout');
 const guestRestrictions = {
   1: [1],
   2: [1, 2],
   3: [1, 2, 3],
   100: [0],
+};
+
+const minPriseLodging = {
+  bungalow: 0,
+  flat: 1000,
+  hotel: 3000,
+  house: 5000,
+  palace: 10000,
 };
 
 const deactivateForm = () => {
@@ -63,6 +77,37 @@ const disableGuestOptions = () => {
   });
 };
 
+const insertMinPrise = () => {
+  const getMinPriceLodging = (tupeOfLodging) => {
+    switch (tupeOfLodging) {
+      case 'bungalow':
+        return minPriseLodging.bungalow;
+      case 'flat':
+        return minPriseLodging.flat;
+      case 'hotel':
+        return minPriseLodging.hotel;
+      case 'house':
+        return minPriseLodging.house;
+      case 'palace':
+        return minPriseLodging.palace;
+    }
+  };
+  const minPrice = getMinPriceLodging(typeLodging.value);
+  priceLidging.min = minPrice;
+  priceLidging.placeholder = minPrice;
+};
+
+changeOptions(timeIn, timeOut);
+
+timeIn.addEventListener('change', () => {
+  changeOptions(timeIn, timeOut);
+});
+
+timeOut.addEventListener('change', () => {
+  changeOptions(timeOut, timeIn);
+});
+
+
 window.addEventListener('load', () => {
   validateGuestNumber();
   disableGuestOptions();
@@ -71,6 +116,10 @@ window.addEventListener('load', () => {
 roomsNumber.addEventListener('change', () => {
   validateGuestNumber();
   disableGuestOptions();
+});
+
+typeLodging.addEventListener('change', () => {
+  insertMinPrise();
 });
 
 formButton.addEventListener('click', () => validateGuestNumber());
