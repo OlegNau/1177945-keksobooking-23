@@ -1,5 +1,3 @@
-import {syncTime} from './util.js';
-
 const adForm = document.querySelector('.ad-form');
 const formFieldsets = adForm.querySelectorAll('.ad-form__element');
 const mapFilters = document.querySelector('.map__filters');
@@ -96,6 +94,10 @@ const insertMinPrise = () => {
   const minPrice = getMinPriceLodging(typeLodging.value);
   priceLidging.min = minPrice;
   priceLidging.placeholder = minPrice;
+};
+
+const syncTime = (toOption, fromOption) => {
+  fromOption.value = toOption.value;
 };
 
 syncTime(timeIn, timeOut);
