@@ -1,4 +1,4 @@
-import {changeOptions} from './util.js';
+import {syncTime} from './util.js';
 
 const adForm = document.querySelector('.ad-form');
 const formFieldsets = adForm.querySelectorAll('.ad-form__element');
@@ -77,34 +77,35 @@ const disableGuestOptions = () => {
   });
 };
 
+const getMinPriceLodging = (tupeOfLodging) => {
+  switch (tupeOfLodging) {
+    case 'bungalow':
+      return minPriseLodging.bungalow;
+    case 'flat':
+      return minPriseLodging.flat;
+    case 'hotel':
+      return minPriseLodging.hotel;
+    case 'house':
+      return minPriseLodging.house;
+    case 'palace':
+      return minPriseLodging.palace;
+  }
+};
+
 const insertMinPrise = () => {
-  const getMinPriceLodging = (tupeOfLodging) => {
-    switch (tupeOfLodging) {
-      case 'bungalow':
-        return minPriseLodging.bungalow;
-      case 'flat':
-        return minPriseLodging.flat;
-      case 'hotel':
-        return minPriseLodging.hotel;
-      case 'house':
-        return minPriseLodging.house;
-      case 'palace':
-        return minPriseLodging.palace;
-    }
-  };
   const minPrice = getMinPriceLodging(typeLodging.value);
   priceLidging.min = minPrice;
   priceLidging.placeholder = minPrice;
 };
 
-changeOptions(timeIn, timeOut);
+syncTime(timeIn, timeOut);
 
 timeIn.addEventListener('change', () => {
-  changeOptions(timeIn, timeOut);
+  syncTime(timeIn, timeOut);
 });
 
 timeOut.addEventListener('change', () => {
-  changeOptions(timeOut, timeIn);
+  syncTime(timeOut, timeIn);
 });
 
 

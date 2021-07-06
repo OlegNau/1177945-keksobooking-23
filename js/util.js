@@ -10,8 +10,8 @@ const getRandomFractionNumber = function (min, max, fractionalPart) {
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length -1)];
 
-const changeOptions = (toOption, fromOption) => {
+const syncTime = (toOption, fromOption) => {
   fromOption.value = toOption.value;
 };
 
-export{getRandomInteger, getRandomFractionNumber, getRandomArrayElement, changeOptions};
+export{getRandomInteger, getRandomFractionNumber, getRandomArrayElement, syncTime};
