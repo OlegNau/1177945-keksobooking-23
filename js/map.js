@@ -1,4 +1,6 @@
 import {deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm} from'./form.js';
+import {createCard} from './lodging.js';
+import {similarAdverts} from './data.js';
 
 deactivateForm();
 deactivateFiltersForm();
@@ -65,9 +67,10 @@ const createMarkers = (cards) => {
 
     marker
       .addTo(map)
-      .bindPopup(card);
+      .bindPopup(createCard(card));
   });
 };
 
+createMarkers(similarAdverts);
 
 export {createMarkers, mainPinMarker};
