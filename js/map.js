@@ -42,6 +42,7 @@ const mainPinMarker = L.marker(
     lng: 139.692,
   },
   {
+    draggable: true,
     icon: mainPinIcon,
   },
 );
