@@ -2,12 +2,18 @@ import './data.js';
 import './lodging.js';
 import './form.js';
 import './map.js';
-//import {createCard} from './lodging.js';
-//import {similarAdverts} from './data.js';
+import {deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm} from'./form.js';
+import {setLoadCallback, createMarkers} from './map.js';
+import {similarAdverts} from './data.js';
 
+deactivateForm();
+deactivateFiltersForm();
 
-//const mapCanvas = document.querySelector('.map__canvas');
+setLoadCallback(() => {
+  activateForm();
+  activateFiltersForm();
+});
 
-//mapCanvas.appendChild(createCard(similarAdverts[0]));
+createMarkers(similarAdverts);
 
 

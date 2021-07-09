@@ -1,25 +1,25 @@
-import {deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm} from'./form.js';
 import {createCard} from './lodging.js';
-import {similarAdverts} from './data.js';
 
-deactivateForm();
-deactivateFiltersForm();
+const addressInput = document.querySelector('#address');
 
 const CENTER_TOKYO = {
   lat: 35.6894,
   lng: 139.692,
 };
 
+addressInput.value = `${CENTER_TOKYO.lat}, ${CENTER_TOKYO.lng}`;
+
 const map = L.map('map-canvas')
-  .on('load', () => {
-    activateForm();
-    activateFiltersForm();
-  })
   .setView({
     lat: CENTER_TOKYO.lat,
     lng: CENTER_TOKYO.lng,
   }, 10);
 
+const setLoadCallback = (callback) => {
+  map.on('load', () => {
+    callback();
+  });
+};
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -46,8 +46,15 @@ const mainPinMarker = L.marker(
   },
 );
 
-const createMarkers = (cards) => {
-  cards.forEach((card) => {
+mainPinMarker
+  .addTo(map)
+  .on('moveend'), (evt) => {
+  const latLng = evt.target.getLatLng();
+  addressInput.value = `${latLng.lat.toFixed(5)}, ${latLng.lng.toFixed(5)}`;
+};
+
+const createMarkers = (adverts) => {
+  adverts.forEach((advert) => {
     const normalIcon = L.icon({
       iconUrl: './img/pin.svg',
       iconSize: [40, 40],
@@ -56,8 +63,8 @@ const createMarkers = (cards) => {
 
     const marker = L.marker(
       {
-        lat: card.location.lat,
-        lng: card.location.lng,
+        lat: advert.location.lat,
+        lng: advert.location.lng,
       },
       {
         draggable: true,
@@ -67,10 +74,9 @@ const createMarkers = (cards) => {
 
     marker
       .addTo(map)
-      .bindPopup(createCard(card));
+      .bindPopup(createCard(advert));
   });
 };
 
-createMarkers(similarAdverts);
 
-export {createMarkers, mainPinMarker};
+export {createMarkers, mainPinMarker, setLoadCallback};
