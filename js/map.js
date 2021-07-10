@@ -1,13 +1,9 @@
 import {createCard} from './lodging.js';
 
-const addressInput = document.querySelector('#address');
-
 const CENTER_TOKYO = {
   lat: 35.6894,
   lng: 139.692,
 };
-
-addressInput.value = `${CENTER_TOKYO.lat}, ${CENTER_TOKYO.lng}`;
 
 const map = L.map('map-canvas')
   .setView({
@@ -47,11 +43,12 @@ const mainPinMarker = L.marker(
   },
 );
 
-mainPinMarker
-  .addTo(map)
-  .on('moveend'), (evt) => {
-  const latLng = evt.target.getLatLng();
-  addressInput.value = `${latLng.lat.toFixed(5)}, ${latLng.lng.toFixed(5)}`;
+const setMoveCallback = (callback) => {
+  mainPinMarker.on('moveend'), (evt) => {
+    const latLng = evt.target.getLatLng();
+    const address = `${latLng.lat.toFixed(5)}, ${latLng.lng.toFixed(5)}`;
+    callback(address);
+  };
 };
 
 const createMarkers = (adverts) => {
@@ -80,4 +77,4 @@ const createMarkers = (adverts) => {
 };
 
 
-export {createMarkers, mainPinMarker, setLoadCallback};
+export {createMarkers, mainPinMarker, setLoadCallback, setMoveCallback};

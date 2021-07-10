@@ -11,6 +11,7 @@ const typeLodging = adForm.querySelector('#type');
 const priceLidging = adForm.querySelector('#price');
 const timeIn = adForm.querySelector('#timein');
 const timeOut = adForm.querySelector('#timeout');
+const addressInput = document.querySelector('#address');
 const guestRestrictions = {
   1: [1],
   2: [1, 2],
@@ -90,6 +91,10 @@ const getMinPriceLodging = (tupeOfLodging) => {
   }
 };
 
+const setAddress = (address) => {
+  addressInput.value = `${address.lat}, ${address.lng}`;
+};
+
 const insertMinPrise = () => {
   const minPrice = getMinPriceLodging(typeLodging.value);
   priceLidging.min = minPrice;
@@ -127,5 +132,5 @@ typeLodging.addEventListener('change', () => {
 
 formButton.addEventListener('click', () => validateGuestNumber());
 
-export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm};
+export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, setAddress};
 
