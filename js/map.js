@@ -44,7 +44,9 @@ const mainPinMarker = L.marker(
 );
 
 const setMoveCallback = (callback) => {
-  mainPinMarker.on('moveend'), (evt) => {
+  mainPinMarker
+    .addTo(map)
+    .on('moveend'), (evt) => {
     const latLng = evt.target.getLatLng();
     const address = `${latLng.lat.toFixed(5)}, ${latLng.lng.toFixed(5)}`;
     callback(address);
@@ -65,7 +67,6 @@ const createMarkers = (adverts) => {
         lng: advert.location.lng,
       },
       {
-        draggable: true,
         icon: normalIcon,
       },
     );
