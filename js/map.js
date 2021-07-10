@@ -43,6 +43,8 @@ const mainPinMarker = L.marker(
   },
 );
 
+mainPinMarker.addTo(map);
+
 const setMoveCallback = (callback) => {
   mainPinMarker
     .on('moveend', (evt) => {
@@ -77,4 +79,4 @@ const createMarkers = (adverts) => {
 };
 
 
-export {createMarkers, mainPinMarker, setLoadCallback, setMoveCallback, map};
+export {createMarkers, setLoadCallback, setMoveCallback};
