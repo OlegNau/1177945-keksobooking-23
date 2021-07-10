@@ -48,7 +48,7 @@ const setMoveCallback = (callback) => {
     .addTo(map)
     .on('moveend', (evt) => {
       const latLng = evt.target.getLatLng();
-      const address = `${latLng.lat.toFixed(5)}, ${latLng.lng.toFixed(5)}`;
+      const address = {lat:`${latLng.lat.toFixed(5)}`, lng:`${latLng.lng.toFixed(5)}`};
       callback(address);
     });
 };
