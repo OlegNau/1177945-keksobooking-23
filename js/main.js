@@ -22,4 +22,3 @@ getData((offers) => {
   createMarkers(offers);
 });
 
-

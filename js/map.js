@@ -1,4 +1,8 @@
 import {createCard} from './lodging.js';
+import {setAddress, resetMapFilters} from './form.js';
+import {sendData} from './fetch.js';
+
+const resetButton = document.querySelector('.ad-form__reset');
 
 const CENTER_TOKYO = {
   lat: 35.6894,
@@ -78,5 +82,32 @@ const createMarkers = (adverts) => {
   });
 };
 
+const resetMap = () => {
+  mainPinMarker.setLatLng(
+    {
+      lat: CENTER_TOKYO.lat,
+      lng: CENTER_TOKYO.lng,
+    },
+  );
+  map.setView(
+    {
+      lat: CENTER_TOKYO.lat,
+      lng: CENTER_TOKYO.lng,
+    }, 10);
+  setAddress(CENTER_TOKYO);
+};
 
-export {createMarkers, setLoadCallback, setMoveCallback};
+const onFormButton = (onSuccess, onError) => {
+  resetButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    resetMap();
+    resetMapFilters();
+    sendData (
+      () => onSuccess(),
+      () => onError(),
+      new FormData(evt.target),
+    );
+  });
+};
+
+export {createMarkers, setLoadCallback, setMoveCallback, resetMap, onFormButton};

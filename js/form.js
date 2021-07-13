@@ -101,6 +101,11 @@ const insertMinPrise = () => {
   priceLidging.placeholder = minPrice;
 };
 
+const resetMapFilters = () => {
+  mapFilters.reset();
+  adForm.reset();
+};
+
 const syncTime = (toOption, fromOption) => {
   fromOption.value = toOption.value;
 };
@@ -114,7 +119,6 @@ timeIn.addEventListener('change', () => {
 timeOut.addEventListener('change', () => {
   syncTime(timeOut, timeIn);
 });
-
 
 window.addEventListener('load', () => {
   validateGuestNumber();
@@ -132,5 +136,5 @@ typeLodging.addEventListener('change', () => {
 
 formButton.addEventListener('click', () => validateGuestNumber());
 
-export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, setAddress};
+export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, setAddress, resetMapFilters};
 
