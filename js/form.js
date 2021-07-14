@@ -1,3 +1,6 @@
+import {resetMap, CENTER_TOKYO} from './map.js';
+import {sendData} from './fetch.js';
+
 const adForm = document.querySelector('.ad-form');
 const formFieldsets = adForm.querySelectorAll('.ad-form__element');
 const mapFilters = document.querySelector('.map__filters');
@@ -12,6 +15,7 @@ const priceLidging = adForm.querySelector('#price');
 const timeIn = adForm.querySelector('#timein');
 const timeOut = adForm.querySelector('#timeout');
 const addressInput = document.querySelector('#address');
+const resetButton = document.querySelector('.ad-form__reset');
 const guestRestrictions = {
   1: [1],
   2: [1, 2],
@@ -101,9 +105,26 @@ const insertMinPrise = () => {
   priceLidging.placeholder = minPrice;
 };
 
-const resetMapFilters = () => {
+const resetFilters = () => {
   mapFilters.reset();
   adForm.reset();
+};
+
+const setResetCallback = () => {
+  resetMap();
+  resetFilters();
+  setAddress(CENTER_TOKYO);
+};
+
+const setSubmitCallback = (onSuccess, onError) => {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    sendData (
+      () => onSuccess(),
+      () => onError(),
+      new FormData(evt.target),
+    );
+  });
 };
 
 const syncTime = (toOption, fromOption) => {
@@ -136,5 +157,10 @@ typeLodging.addEventListener('change', () => {
 
 formButton.addEventListener('click', () => validateGuestNumber());
 
-export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, setAddress, resetMapFilters};
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  setResetCallback();
+});
+
+export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, setAddress, setResetCallback,  setSubmitCallback};
 

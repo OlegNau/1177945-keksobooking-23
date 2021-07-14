@@ -10,4 +10,8 @@ const getRandomFractionNumber = function (min, max, fractionalPart) {
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length -1)];
 
-export{getRandomInteger, getRandomFractionNumber, getRandomArrayElement};
+const isEscEvent = (evt) => {
+  evt.key === ('Escape' || 'Esc');
+};
+
+export{getRandomInteger, getRandomFractionNumber, getRandomArrayElement, isEscEvent};

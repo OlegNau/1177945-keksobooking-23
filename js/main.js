@@ -3,10 +3,12 @@ import './lodging.js';
 import './form.js';
 import './map.js';
 import './fetch.js';
-import {deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, setAddress} from'./form.js';
+import './messages.js';
+import {deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, setAddress, setSubmitCallback, setResetCallback} from'./form.js';
 import {setLoadCallback, createMarkers, setMoveCallback} from './map.js';
 //import {similarAdverts} from './data.js';
 import {getData} from './fetch.js';
+
 
 deactivateForm();
 deactivateFiltersForm();
@@ -22,3 +24,6 @@ getData((offers) => {
   createMarkers(offers);
 });
 
+setSubmitCallback(() => {
+  setResetCallback();
+});
