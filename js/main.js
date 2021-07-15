@@ -8,6 +8,7 @@ import {deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm
 import {setLoadCallback, createMarkers, setMoveCallback} from './map.js';
 //import {similarAdverts} from './data.js';
 import {getData} from './fetch.js';
+import {showError, showSeccess} from './messages.js';
 
 
 deactivateForm();
@@ -16,14 +17,12 @@ deactivateFiltersForm();
 setLoadCallback(() => {
   activateForm();
   activateFiltersForm();
+  setMoveCallback(setAddress);
 });
-
-setMoveCallback(setAddress);
 
 getData((offers) => {
   createMarkers(offers);
 });
 
-setSubmitCallback(() => {
-  setResetCallback();
-});
+setResetCallback();
+setSubmitCallback(showError, showSeccess);

@@ -31,7 +31,7 @@ const showError = () => {
   const errorMessage = errorTemplate.cloneNode(true);
   document.body.appendChild(errorMessage);
   errorButton.addEventListener('click', onErrorButtonClick);
-  document/addEventListener('keydown', onEscErrorPress);
+  document.addEventListener('keydown', onEscErrorPress);
 };
 
 
