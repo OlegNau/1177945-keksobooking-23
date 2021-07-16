@@ -1,4 +1,3 @@
-import {resetMap, CENTER_TOKYO} from './map.js';
 import {sendData} from './fetch.js';
 
 const adForm = document.querySelector('.ad-form');
@@ -32,7 +31,7 @@ const minPriseLodging = {
 };
 
 const deactivateForm = () => {
-  adForm.classList.add('.ad-form--disabled');
+  adForm.classList.add('ad-form--disabled');
   for (let index = 0; index < formFieldsets.length; index++) {
     formFieldsets.disabled = true;
   }
@@ -40,21 +39,21 @@ const deactivateForm = () => {
 
 const deactivateFiltersForm = () => {
   mapFeatures.disabled = true;
-  mapFilters.classList.add('.map__filters--disabled');
+  mapFilters.classList.add('map__filters--disabled');
   for (let index = 0; index < mapFilter.length; index++) {
     mapFilter.disabled = true;
   }
 };
 
 const activateForm = () => {
-  adForm.classList.remove('.ad-form--disabled');
+  adForm.classList.remove('ad-form--disabled');
   for (let index = 0; index < formFieldsets.length; index++) {
     formFieldsets.disabled = false;
   }
 };
 
 const activateFiltersForm = () => {
-  mapFilters.classList.remove('.map__filters--disabled');
+  mapFilters.classList.remove('map__filters--disabled');
   mapFeatures.disabled = false;
   for (let index = 0; index < mapFilter.length; index++) {
     mapFilter.disabled = false;
@@ -110,10 +109,11 @@ const resetFilters = () => {
   adForm.reset();
 };
 
-const setResetCallback = () => {
-  resetMap();
-  resetFilters();
-  setAddress(CENTER_TOKYO);
+const setResetCallback = (callback) => {
+  resetButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    callback();
+  });
 };
 
 const setSubmitCallback = (onSuccess, onError) => {
@@ -157,10 +157,5 @@ typeLodging.addEventListener('change', () => {
 
 formButton.addEventListener('click', () => validateGuestNumber());
 
-resetButton.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  setResetCallback();
-});
-
-export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, setAddress, setResetCallback,  setSubmitCallback};
+export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, resetFilters, setAddress, setResetCallback,  setSubmitCallback};
 

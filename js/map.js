@@ -12,7 +12,7 @@ const map = L.map('map-canvas')
   }, 10);
 
 const setLoadCallback = (callback) => {
-  map.on('load', () => {
+  map.whenReady(() => {
     callback();
   });
 };

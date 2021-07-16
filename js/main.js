@@ -4,8 +4,8 @@ import './form.js';
 import './map.js';
 import './fetch.js';
 import './messages.js';
-import {deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, setAddress, setSubmitCallback, setResetCallback} from'./form.js';
-import {setLoadCallback, createMarkers, setMoveCallback} from './map.js';
+import {deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, resetFilters,  setAddress, setSubmitCallback, setResetCallback} from'./form.js';
+import {setLoadCallback, createMarkers, setMoveCallback, resetMap, CENTER_TOKYO} from './map.js';
 //import {similarAdverts} from './data.js';
 import {getData} from './fetch.js';
 import {showError, showSeccess} from './messages.js';
@@ -18,11 +18,15 @@ setLoadCallback(() => {
   activateForm();
   activateFiltersForm();
   setMoveCallback(setAddress);
+  getData((offers) => {
+    createMarkers(offers);
+  }, showError);
 });
 
-getData((offers) => {
-  createMarkers(offers);
+setResetCallback(() => {
+  resetMap();
+  resetFilters();
+  setAddress(CENTER_TOKYO);
 });
 
-setResetCallback();
 setSubmitCallback(showError, showSeccess);
