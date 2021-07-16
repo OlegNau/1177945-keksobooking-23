@@ -34,7 +34,6 @@ const showError = () => {
   document.addEventListener('keydown', onEscErrorPress);
 };
 
-
 const closeSuccess = () => {
   const successMessage = document.querySelector('.success');
   successMessage.remove();
@@ -56,7 +55,7 @@ const onSuccessButtonClick = (evt) => {
 const showSeccess = () => {
   const successMessage = seccessTamplate.cloneNode(true);
   document.body.appendChild(successMessage);
-  document.addEventListener('click', onSuccessButtonClick);
+  successMessage.addEventListener('click', onSuccessButtonClick);
   document.addEventListener('keydown', onEscSuccessPress);
 };
 
