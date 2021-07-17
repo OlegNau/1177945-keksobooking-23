@@ -18,6 +18,7 @@ setLoadCallback(() => {
   activateForm();
   activateFiltersForm();
   setMoveCallback(setAddress);
+  setAddress(CENTER_TOKYO);
   getData((offers) => {
     createMarkers(offers);
   }, showError);
@@ -29,4 +30,4 @@ setResetCallback(() => {
   setAddress(CENTER_TOKYO);
 });
 
-setSubmitCallback(showError, showSeccess);
+setSubmitCallback(showSeccess, showError);
