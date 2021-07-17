@@ -8,7 +8,7 @@ import {deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm
 import {setLoadCallback, createMarkers, setMoveCallback, resetMap, CENTER_TOKYO} from './map.js';
 //import {similarAdverts} from './data.js';
 import {getData} from './fetch.js';
-import {showError, showSeccess} from './messages.js';
+import {showError, showSuccess} from './messages.js';
 
 
 deactivateForm();
@@ -30,4 +30,4 @@ setResetCallback(() => {
   setAddress(CENTER_TOKYO);
 });
 
-setSubmitCallback(showSeccess, showError);
+setSubmitCallback(showSuccess, showError);

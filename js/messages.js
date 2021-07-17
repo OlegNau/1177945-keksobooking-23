@@ -3,14 +3,13 @@ import {isEscEvent} from './util.js';
 const errorTemplate = document.querySelector('#error')
   .content
   .querySelector('.error');
-const errorButton = errorTemplate.querySelector('.error__button');
 
-const seccessTamplate = document.querySelector('#success')
+const seccessTemplate = document.querySelector('#success')
   .content
   .querySelector('.success');
 
 const closeErrorMessage = () => {
-  const errorMessage = document.querySelector('.errror');
+  const errorMessage = document.querySelector('.error');
   errorMessage.remove();
 };
 
@@ -29,8 +28,9 @@ const onErrorButtonClick = (evt) => {
 
 const showError = () => {
   const errorMessage = errorTemplate.cloneNode(true);
+  const errorButoon = errorMessage.querySelector('.error__button');
   document.body.appendChild(errorMessage);
-  errorButton.addEventListener('click', onErrorButtonClick);
+  errorButoon.addEventListener('click', onErrorButtonClick);
   document.addEventListener('keydown', onEscErrorPress);
 };
 
@@ -42,7 +42,7 @@ const closeSuccess = () => {
 const onEscSuccessPress = (evt) => {
   if (isEscEvent(evt)) {
     evt.preventDefault();
-    closeErrorMessage();
+    closeSuccess();
     document.removeEventListener('keydown', onEscSuccessPress);
   }
 };
@@ -52,12 +52,12 @@ const onSuccessButtonClick = (evt) => {
   closeSuccess();
 };
 
-const showSeccess = () => {
-  const successMessage = seccessTamplate.cloneNode(true);
+const showSuccess = () => {
+  const successMessage = seccessTemplate.cloneNode(true);
   document.body.appendChild(successMessage);
-  successMessage.addEventListener('click', onSuccessButtonClick);
+  successMessage.addEventListener('mousedown', onSuccessButtonClick);
   document.addEventListener('keydown', onEscSuccessPress);
 };
 
-export {showError, showSeccess};
+export {showError, showSuccess};
 
