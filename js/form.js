@@ -1,3 +1,5 @@
+import {sendData} from './fetch.js';
+
 const adForm = document.querySelector('.ad-form');
 const formFieldsets = adForm.querySelectorAll('.ad-form__element');
 const mapFilters = document.querySelector('.map__filters');
@@ -12,6 +14,7 @@ const priceLidging = adForm.querySelector('#price');
 const timeIn = adForm.querySelector('#timein');
 const timeOut = adForm.querySelector('#timeout');
 const addressInput = document.querySelector('#address');
+const resetButton = document.querySelector('.ad-form__reset');
 const guestRestrictions = {
   1: [1],
   2: [1, 2],
@@ -28,7 +31,7 @@ const minPriseLodging = {
 };
 
 const deactivateForm = () => {
-  adForm.classList.add('.ad-form--disabled');
+  adForm.classList.add('ad-form--disabled');
   for (let index = 0; index < formFieldsets.length; index++) {
     formFieldsets.disabled = true;
   }
@@ -36,21 +39,21 @@ const deactivateForm = () => {
 
 const deactivateFiltersForm = () => {
   mapFeatures.disabled = true;
-  mapFilters.classList.add('.map__filters--disabled');
+  mapFilters.classList.add('map__filters--disabled');
   for (let index = 0; index < mapFilter.length; index++) {
     mapFilter.disabled = true;
   }
 };
 
 const activateForm = () => {
-  adForm.classList.remove('.ad-form--disabled');
+  adForm.classList.remove('ad-form--disabled');
   for (let index = 0; index < formFieldsets.length; index++) {
     formFieldsets.disabled = false;
   }
 };
 
 const activateFiltersForm = () => {
-  mapFilters.classList.remove('.map__filters--disabled');
+  mapFilters.classList.remove('map__filters--disabled');
   mapFeatures.disabled = false;
   for (let index = 0; index < mapFilter.length; index++) {
     mapFilter.disabled = false;
@@ -101,6 +104,29 @@ const insertMinPrise = () => {
   priceLidging.placeholder = minPrice;
 };
 
+const resetFilters = () => {
+  mapFilters.reset();
+  adForm.reset();
+};
+
+const setResetCallback = (callback) => {
+  resetButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    callback();
+  });
+};
+
+const setSubmitCallback = (onSuccess, onError) => {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    sendData (
+      () => onSuccess(),
+      () => onError(),
+      new FormData(evt.target),
+    );
+  });
+};
+
 const syncTime = (toOption, fromOption) => {
   fromOption.value = toOption.value;
 };
@@ -114,7 +140,6 @@ timeIn.addEventListener('change', () => {
 timeOut.addEventListener('change', () => {
   syncTime(timeOut, timeIn);
 });
-
 
 window.addEventListener('load', () => {
   validateGuestNumber();
@@ -132,5 +157,5 @@ typeLodging.addEventListener('change', () => {
 
 formButton.addEventListener('click', () => validateGuestNumber());
 
-export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, setAddress};
+export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, resetFilters, setAddress, setResetCallback,  setSubmitCallback};
 

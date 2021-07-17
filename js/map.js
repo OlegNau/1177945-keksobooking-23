@@ -12,7 +12,7 @@ const map = L.map('map-canvas')
   }, 10);
 
 const setLoadCallback = (callback) => {
-  map.on('load', () => {
+  map.whenReady(() => {
     callback();
   });
 };
@@ -78,5 +78,18 @@ const createMarkers = (adverts) => {
   });
 };
 
+const resetMap = () => {
+  mainPinMarker.setLatLng(
+    {
+      lat: CENTER_TOKYO.lat,
+      lng: CENTER_TOKYO.lng,
+    },
+  );
+  map.setView(
+    {
+      lat: CENTER_TOKYO.lat,
+      lng: CENTER_TOKYO.lng,
+    }, 10);
+};
 
-export {createMarkers, setLoadCallback, setMoveCallback};
+export {createMarkers, setLoadCallback, setMoveCallback, resetMap, CENTER_TOKYO};
