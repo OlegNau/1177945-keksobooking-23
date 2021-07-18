@@ -2,7 +2,7 @@ const typeFilter = document.querySelector('#housing-type');
 const priceFilter = document.querySelector('#housing-price');
 const roomsFilter = document.querySelector('#housing-rooms');
 const guestsFilter = document.querySelector('#housing-guests');
-const featuresFilter = document.querySelector('#housing-features');
+const featuresFilter = document.querySelectorAll('.map__checkbox');
 
 const DEFAULT_VALUE = 'any';
 
@@ -11,15 +11,15 @@ const priceValue = {
     MIN: 0,
     MAX: Infinity,
   },
-  LOW:  {
+  'low':  {
     MIN: 0,
     MAX: 10000,
   },
-  MIDDLE: {
+  'middle': {
     MIN: 1000,
     MAX: 5000,
   },
-  HIGH: {
+  'high': {
     MIN: 5000,
     MAX: Infinity,
   },
