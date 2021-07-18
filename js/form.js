@@ -30,6 +30,8 @@ const minPriseLodging = {
   palace: 10000,
 };
 
+const DELAY = 500;
+
 const deactivateForm = () => {
   adForm.classList.add('ad-form--disabled');
   for (let index = 0; index < formFieldsets.length; index++) {
@@ -127,6 +129,11 @@ const setSubmitCallback = (onSuccess, onError) => {
   });
 };
 
+
+const changeFilters = (callback) => {
+  mapFilters.addEventListener('change', () => callback());
+};
+
 const syncTime = (toOption, fromOption) => {
   fromOption.value = toOption.value;
 };
@@ -157,5 +164,5 @@ typeLodging.addEventListener('change', () => {
 
 formButton.addEventListener('click', () => validateGuestNumber());
 
-export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, resetFilters, setAddress, setResetCallback,  setSubmitCallback};
+export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, resetFilters, setAddress, setResetCallback,  setSubmitCallback, changeFilters, DELAY};
 

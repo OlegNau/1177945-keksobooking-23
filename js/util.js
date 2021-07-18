@@ -12,4 +12,12 @@ const getRandomArrayElement = (elements) => elements[getRandomInteger(0, element
 
 const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
-export{getRandomInteger, getRandomFractionNumber, getRandomArrayElement, isEscEvent};
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export{getRandomInteger, getRandomFractionNumber, getRandomArrayElement, isEscEvent, debounce};

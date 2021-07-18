@@ -1,4 +1,7 @@
 import {createCard} from './lodging.js';
+import {getCheckedOption} from './filters.js';
+
+const MAX_ADVERTS = 10;
 
 const CENTER_TOKYO = {
   lat: 35.6894,
@@ -9,13 +12,15 @@ const map = L.map('map-canvas')
   .setView({
     lat: CENTER_TOKYO.lat,
     lng: CENTER_TOKYO.lng,
-  }, 10);
+  }, 12);
 
 const setLoadCallback = (callback) => {
   map.whenReady(() => {
     callback();
   });
 };
+
+let markers;
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -55,27 +60,36 @@ const setMoveCallback = (callback) => {
 };
 
 const createMarkers = (adverts) => {
+  const markersArray = [];
+
   adverts.forEach((advert) => {
-    const normalIcon = L.icon({
-      iconUrl: './img/pin.svg',
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
-    });
+    if (getCheckedOption(advert)) {
+      const normalIcon = L.icon({
+        iconUrl: './img/pin.svg',
+        iconSize: [40, 40],
+        iconAnchor: [20, 40],
+      });
 
-    const marker = L.marker(
-      {
-        lat: advert.location.lat,
-        lng: advert.location.lng,
-      },
-      {
-        icon: normalIcon,
-      },
-    );
+      const marker = L.marker(
+        {
+          lat: advert.location.lat,
+          lng: advert.location.lng,
+        },
+        {
+          icon: normalIcon,
+        },
+      );
 
-    marker
-      .addTo(map)
-      .bindPopup(createCard(advert));
+      marker.bindPopup(createCard(advert));
+      markersArray.push(marker);
+    }
   });
+
+  if (markers) {
+    markers.clearLayers();
+  }
+
+  markers = L.featureGroup(markersArray.slice(0, MAX_ADVERTS)).addTo(map);
 };
 
 const resetMap = () => {
@@ -89,7 +103,7 @@ const resetMap = () => {
     {
       lat: CENTER_TOKYO.lat,
       lng: CENTER_TOKYO.lng,
-    }, 10);
+    }, 12);
 };
 
 export {createMarkers, setLoadCallback, setMoveCallback, resetMap, CENTER_TOKYO};
