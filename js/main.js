@@ -5,7 +5,7 @@ import './map.js';
 import './fetch.js';
 import './messages.js';
 import './filters.js';
-import {deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, resetFilters,  setAddress, setSubmitCallback, setResetCallback, changeFilters, DELAY} from'./form.js';
+import {deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, resetFilters,  setAddress, setSubmitCallback, setResetCallback, setChangeFiltersCallback, DELAY} from'./form.js';
 import {setLoadCallback, createMarkers, setMoveCallback, resetMap, CENTER_TOKYO} from './map.js';
 import {debounce} from './util.js';
 import {getData} from './fetch.js';
@@ -21,9 +21,8 @@ setLoadCallback(() => {
   setAddress(CENTER_TOKYO);
   getData((offers) => {
     createMarkers(offers);
-    changeFilters(
-      debounce(() => createMarkers(offers), DELAY),
-    );
+    const debounceUpdate = debounce(() => createMarkers(offers), DELAY);
+    setChangeFiltersCallback(debounceUpdate);
   }, showError);
 });
 

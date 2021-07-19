@@ -130,7 +130,7 @@ const setSubmitCallback = (onSuccess, onError) => {
 };
 
 
-const changeFilters = (callback) => {
+const setChangeFiltersCallback = (callback) => {
   mapFilters.addEventListener('change', () => callback());
 };
 
@@ -164,5 +164,5 @@ typeLodging.addEventListener('change', () => {
 
 formButton.addEventListener('click', () => validateGuestNumber());
 
-export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, resetFilters, setAddress, setResetCallback,  setSubmitCallback, changeFilters, DELAY};
+export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, resetFilters, setAddress, setResetCallback,  setSubmitCallback, setChangeFiltersCallback, DELAY};
 

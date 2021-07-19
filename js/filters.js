@@ -25,12 +25,12 @@ const priceValue = {
   },
 };
 
-const getCheckedType = (adverts) => typeFilter.value === DEFAULT_VALUE || typeFilter.value === adverts.offer.type;
-const getCheckedPrice = (adverts) => priceFilter.value === DEFAULT_VALUE || (adverts.offer.price >= priceValue[priceFilter.value].MIN && adverts.offer.price <= priceValue[priceFilter.value].MAX);
-const getCheckedRooms = (adverts) => roomsFilter.value === DEFAULT_VALUE || adverts.offer.rooms === Number(roomsFilter.value);
-const getCheckedGuests = (adverts) => guestsFilter.value === DEFAULT_VALUE || adverts.offer.guests === Number(guestsFilter.value);
+const checkType = (adverts) => typeFilter.value === DEFAULT_VALUE || adverts === typeFilter.value;
+const checkPrice = (adverts) => priceFilter.value === DEFAULT_VALUE || (adverts >= priceValue[priceFilter.value].MIN && adverts <= priceValue[priceFilter.value].MAX);
+const checkRooms = (adverts) => roomsFilter.value === DEFAULT_VALUE || adverts === Number(roomsFilter.value);
+const checkGuests = (adverts) => guestsFilter.value === DEFAULT_VALUE || adverts === Number(guestsFilter.value);
 
-const getCheckedFeatures = (advert) => {
+const checkFeatures = (advert) => {
   const checkedFeatures = [];
   featuresFilter.forEach((feature) => {
     if (feature.checked) {
@@ -38,13 +38,13 @@ const getCheckedFeatures = (advert) => {
     }
   });
   return checkedFeatures.every((checkedFeature) => {
-    if (advert.offer.features) {
+    if (advert) {
       return advert.offer.features.includes(checkedFeature);
     }
   });
 };
 
 
-const getCheckedOption = (adverts) => getCheckedType(adverts) && getCheckedPrice(adverts) && getCheckedRooms(adverts) && getCheckedGuests(adverts) && getCheckedFeatures(adverts);
+const getCheckedOption = (adverts) => checkType(adverts.offer.type) && checkPrice(adverts.offer.price) && checkRooms(adverts.offer.rooms) && checkGuests(adverts.offer.guests) && checkFeatures(adverts.offer.features);
 
 export {getCheckedOption};
