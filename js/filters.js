@@ -30,18 +30,14 @@ const checkPrice = (adverts) => priceFilter.value === DEFAULT_VALUE || (adverts 
 const checkRooms = (adverts) => roomsFilter.value === DEFAULT_VALUE || adverts === Number(roomsFilter.value);
 const checkGuests = (adverts) => guestsFilter.value === DEFAULT_VALUE || adverts === Number(guestsFilter.value);
 
-const checkFeatures = (advert) => {
+const checkFeatures = (features = []) => {
   const checkedFeatures = [];
   featuresFilter.forEach((feature) => {
     if (feature.checked) {
       checkedFeatures.push(feature.value);
     }
   });
-  return checkedFeatures.every((checkedFeature) => {
-    if (advert) {
-      return advert.offer.features.includes(checkedFeature);
-    }
-  });
+  return checkedFeatures.every((checkedFeature) => features.includes(checkedFeature));
 };
 
 
