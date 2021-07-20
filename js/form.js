@@ -59,11 +59,11 @@ const activateFiltersForm = () => {
 };
 
 const deleteBorderError = () => {
-  let validInputs = document.querySelectorAll('input:not(:invalid), select:not(:invalid)');
+  const validInputs = document.querySelectorAll('input:not(:invalid), select:not(:invalid)');
 
   for (let index = 0; index < validInputs.length; index++) {
     validInputs[index].classList.remove('ad-form__element--invalid-input');
-  };
+  }
 };
 
 const validateGuestNumber = () => {
@@ -99,8 +99,6 @@ const getMinPriceLodging = (tupeOfLodging) => {
       return MinPriceLodging.PALACE;
   }
 };
-
-
 
 const setAddress = (address) => {
   addressInput.value = `${address.lat}, ${address.lng}`;
@@ -163,7 +161,7 @@ roomsNumber.addEventListener('change', () => {
 guestsNumber.addEventListener('change', () => {
   validateGuestNumber();
   deleteBorderError();
-})
+});
 
 typeLodging.addEventListener('change', () => {
   insertMinPrise();
@@ -174,10 +172,10 @@ adForm.addEventListener('input', () => {
 });
 
 const addBorderError = () => {
-  let invalidInputs = adForm.querySelectorAll('input:invalid, select:invalid')
+  const invalidInputs = adForm.querySelectorAll('input:invalid, select:invalid');
   for (let index = 0; index < invalidInputs.length; index++) {
     invalidInputs[index].classList.add('ad-form__element--invalid-input');
-  };
+  }
 };
 
 formButton.addEventListener('click', () => {
