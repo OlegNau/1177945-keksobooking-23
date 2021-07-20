@@ -48,8 +48,8 @@ const mainPinIcon = L.icon(
 
 const mainPinMarker = L.marker(
   {
-    lat: 35.6894,
-    lng: 139.692,
+    lat: CENTER_TOKYO.lat,
+    lng: CENTER_TOKYO.lng,
   },
   {
     draggable: true,

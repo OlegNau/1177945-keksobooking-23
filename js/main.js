@@ -6,7 +6,7 @@ import {deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm
 import {setLoadCallback, createMarkers, setMoveCallback, resetMap, CENTER_TOKYO} from './map.js';
 import {debounce} from './util.js';
 import {getData, sendData} from './fetch.js';
-import {showError, showSuccess} from './messages.js';
+import {showError, showSuccess, errorMessage} from './messages.js';
 
 const DELAY = 500;
 
@@ -22,7 +22,8 @@ setLoadCallback(() => {
     createMarkers(offers);
     const debounceUpdate = debounce(() => createMarkers(offers), DELAY);
     setChangeFiltersCallback(debounceUpdate);
-  }, showError);
+  },
+  () => errorMessage('Данные не загружены'));
 });
 
 setResetCallback(() => {

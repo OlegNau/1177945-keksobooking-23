@@ -1,5 +1,30 @@
 import {isEscEvent} from './util.js';
 
+const ERROR_TIME = 5000;
+
+const errorMessage = (message) => {
+  const messageContainer = document.createElement('div');
+  messageContainer.style.position = 'absolute';
+  messageContainer.style.zIndex = '999';
+  messageContainer.style.top = '0';
+  messageContainer.style.left = '0';
+  messageContainer.style.right = '0';
+  messageContainer.style.padiing = '30px 30px';
+  messageContainer.style.fontSize = '30px';
+  messageContainer.style.textAlign = 'center';
+  messageContainer.style.fontWeight = 'bold';
+  messageContainer.style.color = '#FF0000';
+  messageContainer.style.backgroundColor = 'rgba(255,255,255, 0.5)';
+
+  messageContainer.textContent = message;
+
+  document.body.append(messageContainer);
+
+  setTimeout(() => {
+    messageContainer.remove();
+  }, ERROR_TIME);
+};
+
 const errorTemplate = document.querySelector('#error')
   .content
   .querySelector('.error');
@@ -59,5 +84,5 @@ const showSuccess = () => {
   document.addEventListener('keydown', onEscSuccessPress);
 };
 
-export {showError, showSuccess};
+export {showError, showSuccess, errorMessage};
 
