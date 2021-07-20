@@ -1,5 +1,3 @@
-import {sendData} from './fetch.js';
-
 const guestRestrictions = {
   1: [1],
   2: [1, 2],
@@ -175,7 +173,7 @@ adForm.addEventListener('input', () => {
   deleteBorderError();
 });
 
-const onBorderError = () => {
+const addBorderError = () => {
   let invalidInputs = adForm.querySelectorAll('input:invalid, select:invalid')
   for (let index = 0; index < invalidInputs.length; index++) {
     invalidInputs[index].classList.add('ad-form__element--invalid-input');
@@ -184,7 +182,7 @@ const onBorderError = () => {
 
 formButton.addEventListener('click', () => {
   validateGuestNumber();
-  onBorderError();
+  addBorderError();
 });
 
 export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, resetFilters, setAddress, setResetCallback,  setSubmitCallback, setChangeFiltersCallback};

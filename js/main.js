@@ -1,14 +1,11 @@
 import './data.js';
 import './lodging.js';
 import './form.js';
-import './map.js';
-import './fetch.js';
-import './messages.js';
 import './filters.js';
 import {deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, resetFilters,  setAddress, setSubmitCallback, setResetCallback, setChangeFiltersCallback} from'./form.js';
 import {setLoadCallback, createMarkers, setMoveCallback, resetMap, CENTER_TOKYO} from './map.js';
 import {debounce} from './util.js';
-import {getData} from './fetch.js';
+import {getData, sendData} from './fetch.js';
 import {showError, showSuccess} from './messages.js';
 
 const DELAY = 500;
