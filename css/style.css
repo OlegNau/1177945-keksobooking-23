@@ -572,6 +572,10 @@ fieldset {
           box-shadow: 0 0 2px 2px #ff6547;
 }
 
+.ad-form__element--invalidinput {
+  border: 30px solid rgb(68, 0, 255)
+}
+
 .ad-form__photo {
   margin-right: 10px;
   margin-bottom: 10px;

@@ -5,7 +5,6 @@ const formFieldsets = adForm.querySelectorAll('.ad-form__element');
 const mapFilters = document.querySelector('.map__filters');
 const mapFilter = mapFilters.querySelectorAll('.map__filter');
 const mapFeatures = mapFilters.querySelector('.map__features');
-
 const roomsNumber = adForm.querySelector('#room_number');
 const guestsNumber = adForm.querySelector('#capacity');
 const formButton = adForm.querySelector('.ad-form__submit');
@@ -118,6 +117,8 @@ const setResetCallback = (callback) => {
   });
 };
 
+
+
 const setSubmitCallback = (onSuccess, onError) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -128,7 +129,6 @@ const setSubmitCallback = (onSuccess, onError) => {
     );
   });
 };
-
 
 const setChangeFiltersCallback = (callback) => {
   mapFilters.addEventListener('change', () => callback());
@@ -162,7 +162,33 @@ typeLodging.addEventListener('change', () => {
   insertMinPrise();
 });
 
-formButton.addEventListener('click', () => validateGuestNumber());
+const getValidElements = () => {
+  let validInputs = document.querySelectorAll('input:not(:invalid)');
+  let validSelects = document.querySelectorAll('select:not(:invalid)');
+  for (let index = 0; index < validInputs.length; index++) {
+    validInputs[index].classList.remove('ad-form__element--invalidinput');
+  };
+  for (let index = 0; index < validSelects.length; index++) {
+    validSelects[index].classList.remove('ad-form__element--invalidinput');
+  };
+};
+
+const getInvalidElements = () => {
+  let InvalidInputs = adForm.querySelectorAll('input:invalid')
+  let InvalidSelects = adForm.querySelectorAll('select:invalid')
+  for (let index = 0; index < InvalidInputs.length; index++) {
+    InvalidInputs[index].classList.add('ad-form__element--invalidinput');
+  };
+  for (let index = 0; index < InvalidSelects.length; index++) {
+    InvalidSelects[index].classList.add('ad-form__element--invalidinput');
+  };
+};
+
+formButton.addEventListener('click', () => {
+  validateGuestNumber();
+  getInvalidElements();
+
+});
 
 export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, resetFilters, setAddress, setResetCallback,  setSubmitCallback, setChangeFiltersCallback, DELAY};
 
