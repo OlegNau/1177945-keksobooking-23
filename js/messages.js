@@ -2,7 +2,7 @@ import {isEscEvent} from './util.js';
 
 const ERROR_TIME = 5000;
 
-const errorMessage = (message) => {
+const errorShowMessage = (message) => {
   const messageContainer = document.createElement('div');
   messageContainer.style.position = 'absolute';
   messageContainer.style.zIndex = '999';
@@ -84,5 +84,5 @@ const showSuccess = () => {
   document.addEventListener('keydown', onEscSuccessPress);
 };
 
-export {showError, showSuccess, errorMessage};
+export {showError, showSuccess, errorShowMessage};
 
