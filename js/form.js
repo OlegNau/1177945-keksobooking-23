@@ -59,7 +59,7 @@ const activateFiltersForm = () => {
 };
 
 const deleteBorderError = () => {
-  const validInputs = document.querySelectorAll('input:not(:invalid), select:not(:invalid)');
+  const validInputs = adForm.querySelectorAll('input:not(:invalid), select:not(:invalid)');
 
   for (let index = 0; index < validInputs.length; index++) {
     validInputs[index].classList.remove('ad-form__element--invalid-input');

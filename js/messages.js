@@ -29,7 +29,7 @@ const errorTemplate = document.querySelector('#error')
   .content
   .querySelector('.error');
 
-const seccessTemplate = document.querySelector('#success')
+const successTemplate = document.querySelector('#success')
   .content
   .querySelector('.success');
 
@@ -53,9 +53,9 @@ const onErrorButtonClick = (evt) => {
 
 const showError = () => {
   const errorMessage = errorTemplate.cloneNode(true);
-  const errorButoon = errorMessage.querySelector('.error__button');
+  const errorButton = errorMessage.querySelector('.error__button');
   document.body.appendChild(errorMessage);
-  errorButoon.addEventListener('click', onErrorButtonClick);
+  errorButton.addEventListener('click', onErrorButtonClick);
   document.addEventListener('keydown', onEscErrorPress);
 };
 
@@ -78,7 +78,7 @@ const onSuccessButtonClick = (evt) => {
 };
 
 const showSuccess = () => {
-  const successMessage = seccessTemplate.cloneNode(true);
+  const successMessage = successTemplate.cloneNode(true);
   document.body.appendChild(successMessage);
   successMessage.addEventListener('mousedown', onSuccessButtonClick);
   document.addEventListener('keydown', onEscSuccessPress);

@@ -1,9 +1,3 @@
-const typeFilter = document.querySelector('#housing-type');
-const priceFilter = document.querySelector('#housing-price');
-const roomsFilter = document.querySelector('#housing-rooms');
-const guestsFilter = document.querySelector('#housing-guests');
-const featuresFilter = document.querySelectorAll('.map__checkbox');
-
 const DEFAULT_VALUE = 'any';
 
 const priceValue = {
@@ -24,6 +18,12 @@ const priceValue = {
     MAX: Infinity,
   },
 };
+
+const typeFilter = document.querySelector('#housing-type');
+const priceFilter = document.querySelector('#housing-price');
+const roomsFilter = document.querySelector('#housing-rooms');
+const guestsFilter = document.querySelector('#housing-guests');
+const featuresFilter = document.querySelectorAll('.map__checkbox');
 
 const checkType = (adverts) => typeFilter.value === DEFAULT_VALUE || adverts === typeFilter.value;
 const checkPrice = (adverts) => priceFilter.value === DEFAULT_VALUE || (adverts >= priceValue[priceFilter.value].MIN && adverts <= priceValue[priceFilter.value].MAX);
