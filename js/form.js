@@ -1,20 +1,3 @@
-import {sendData} from './fetch.js';
-
-const adForm = document.querySelector('.ad-form');
-const formFieldsets = adForm.querySelectorAll('.ad-form__element');
-const mapFilters = document.querySelector('.map__filters');
-const mapFilter = mapFilters.querySelectorAll('.map__filter');
-const mapFeatures = mapFilters.querySelector('.map__features');
-
-const roomsNumber = adForm.querySelector('#room_number');
-const guestsNumber = adForm.querySelector('#capacity');
-const formButton = adForm.querySelector('.ad-form__submit');
-const typeLodging = adForm.querySelector('#type');
-const priceLidging = adForm.querySelector('#price');
-const timeIn = adForm.querySelector('#timein');
-const timeOut = adForm.querySelector('#timeout');
-const addressInput = document.querySelector('#address');
-const resetButton = document.querySelector('.ad-form__reset');
 const guestRestrictions = {
   1: [1],
   2: [1, 2],
@@ -22,13 +5,28 @@ const guestRestrictions = {
   100: [0],
 };
 
-const minPriseLodging = {
-  bungalow: 0,
-  flat: 1000,
-  hotel: 3000,
-  house: 5000,
-  palace: 10000,
+const MinPriceLodging = {
+  BUNGALOW: 0,
+  FLAT: 1000,
+  HOTEL: 3000,
+  HOUSE: 5000,
+  PALACE: 10000,
 };
+
+const adForm = document.querySelector('.ad-form');
+const formFieldsets = adForm.querySelectorAll('.ad-form__element');
+const mapFilter = document.querySelector('.map__filters');
+const mapFilters = mapFilter.querySelectorAll('.map__filter');
+const mapFeatures = mapFilter.querySelector('.map__features');
+const roomsNumber = adForm.querySelector('#room_number');
+const guestsNumber = adForm.querySelector('#capacity');
+const formButton = adForm.querySelector('.ad-form__submit');
+const typeLodging = adForm.querySelector('#type');
+const priceLodging = adForm.querySelector('#price');
+const timeIn = adForm.querySelector('#timein');
+const timeOut = adForm.querySelector('#timeout');
+const addressInput = document.querySelector('#address');
+const resetButton = document.querySelector('.ad-form__reset');
 
 const deactivateForm = () => {
   adForm.classList.add('ad-form--disabled');
@@ -39,9 +37,9 @@ const deactivateForm = () => {
 
 const deactivateFiltersForm = () => {
   mapFeatures.disabled = true;
-  mapFilters.classList.add('map__filters--disabled');
-  for (let index = 0; index < mapFilter.length; index++) {
-    mapFilter.disabled = true;
+  mapFilter.classList.add('map__filters--disabled');
+  for (let index = 0; index < mapFilters.length; index++) {
+    mapFilters.disabled = true;
   }
 };
 
@@ -53,10 +51,18 @@ const activateForm = () => {
 };
 
 const activateFiltersForm = () => {
-  mapFilters.classList.remove('map__filters--disabled');
+  mapFilter.classList.remove('map__filters--disabled');
   mapFeatures.disabled = false;
-  for (let index = 0; index < mapFilter.length; index++) {
-    mapFilter.disabled = false;
+  for (let index = 0; index < mapFilters.length; index++) {
+    mapFilters.disabled = false;
+  }
+};
+
+const deleteBorderError = () => {
+  const validInputs = document.querySelectorAll('input:not(:invalid), select:not(:invalid)');
+
+  for (let index = 0; index < validInputs.length; index++) {
+    validInputs[index].classList.remove('ad-form__element--invalid-input');
   }
 };
 
@@ -82,15 +88,15 @@ const disableGuestOptions = () => {
 const getMinPriceLodging = (tupeOfLodging) => {
   switch (tupeOfLodging) {
     case 'bungalow':
-      return minPriseLodging.bungalow;
+      return MinPriceLodging.BUNGALOW;
     case 'flat':
-      return minPriseLodging.flat;
+      return MinPriceLodging.FLAT;
     case 'hotel':
-      return minPriseLodging.hotel;
+      return MinPriceLodging.HOTEL;
     case 'house':
-      return minPriseLodging.house;
+      return MinPriceLodging.HOUSE;
     case 'palace':
-      return minPriseLodging.palace;
+      return MinPriceLodging.PALACE;
   }
 };
 
@@ -100,12 +106,12 @@ const setAddress = (address) => {
 
 const insertMinPrise = () => {
   const minPrice = getMinPriceLodging(typeLodging.value);
-  priceLidging.min = minPrice;
-  priceLidging.placeholder = minPrice;
+  priceLodging.min = minPrice;
+  priceLodging.placeholder = minPrice;
 };
 
 const resetFilters = () => {
-  mapFilters.reset();
+  mapFilter.reset();
   adForm.reset();
 };
 
@@ -116,15 +122,15 @@ const setResetCallback = (callback) => {
   });
 };
 
-const setSubmitCallback = (onSuccess, onError) => {
+const setSubmitCallback = (callback) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    sendData (
-      () => onSuccess(),
-      () => onError(),
-      new FormData(evt.target),
-    );
+    callback(new FormData(adForm));
   });
+};
+
+const setChangeFiltersCallback = (callback) => {
+  mapFilter.addEventListener('change', () => callback());
 };
 
 const syncTime = (toOption, fromOption) => {
@@ -149,13 +155,33 @@ window.addEventListener('load', () => {
 roomsNumber.addEventListener('change', () => {
   validateGuestNumber();
   disableGuestOptions();
+  deleteBorderError();
+});
+
+guestsNumber.addEventListener('change', () => {
+  validateGuestNumber();
+  deleteBorderError();
 });
 
 typeLodging.addEventListener('change', () => {
   insertMinPrise();
 });
 
-formButton.addEventListener('click', () => validateGuestNumber());
+adForm.addEventListener('input', () => {
+  deleteBorderError();
+});
 
-export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, resetFilters, setAddress, setResetCallback,  setSubmitCallback};
+const addBorderError = () => {
+  const invalidInputs = adForm.querySelectorAll('input:invalid, select:invalid');
+  for (let index = 0; index < invalidInputs.length; index++) {
+    invalidInputs[index].classList.add('ad-form__element--invalid-input');
+  }
+};
+
+formButton.addEventListener('click', () => {
+  validateGuestNumber();
+  addBorderError();
+});
+
+export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, resetFilters, setAddress, setResetCallback,  setSubmitCallback, setChangeFiltersCallback};
 

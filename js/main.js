@@ -1,15 +1,14 @@
 import './data.js';
 import './lodging.js';
 import './form.js';
-import './map.js';
-import './fetch.js';
-import './messages.js';
-import {deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, resetFilters,  setAddress, setSubmitCallback, setResetCallback} from'./form.js';
+import './filters.js';
+import {deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, resetFilters,  setAddress, setSubmitCallback, setResetCallback, setChangeFiltersCallback} from'./form.js';
 import {setLoadCallback, createMarkers, setMoveCallback, resetMap, CENTER_TOKYO} from './map.js';
-//import {similarAdverts} from './data.js';
-import {getData} from './fetch.js';
+import {debounce} from './util.js';
+import {getData, sendData} from './fetch.js';
 import {showError, showSuccess} from './messages.js';
 
+const DELAY = 500;
 
 deactivateForm();
 deactivateFiltersForm();
@@ -21,6 +20,8 @@ setLoadCallback(() => {
   setAddress(CENTER_TOKYO);
   getData((offers) => {
     createMarkers(offers);
+    const debounceUpdate = debounce(() => createMarkers(offers), DELAY);
+    setChangeFiltersCallback(debounceUpdate);
   }, showError);
 });
 
@@ -30,4 +31,10 @@ setResetCallback(() => {
   setAddress(CENTER_TOKYO);
 });
 
-setSubmitCallback(showSuccess, showError);
+setSubmitCallback((data) => {
+  sendData (
+    () => showSuccess(),
+    () => showError(),
+    data,
+  );
+});
