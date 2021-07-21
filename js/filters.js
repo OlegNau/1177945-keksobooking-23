@@ -1,3 +1,5 @@
+const MAX_ADVERTS = 10;
+
 const DEFAULT_VALUE = 'any';
 
 const priceValue = {
@@ -40,8 +42,6 @@ const checkFeatures = (features = []) => {
   return checkedFeatures.every((checkedFeature) => features.includes(checkedFeature));
 };
 
-const getFilteredAds = (adverts) => {
-  return adverts.filter(advert => checkType(advert.offer.type) && checkPrice(advert.offer.price) && checkRooms(advert.offer.rooms) && checkGuests(advert.offer.guests) && checkFeatures(advert.offer.features));
-};
+const getFilteredAds = (adverts) => (adverts.filter((advert) => checkType(advert.offer.type) && checkPrice(advert.offer.price) && checkRooms(advert.offer.rooms) && checkGuests(advert.offer.guests) && checkFeatures(advert.offer.features))).slice(0, MAX_ADVERTS);
 
 export {getFilteredAds};

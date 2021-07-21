@@ -1,6 +1,6 @@
 import {deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, resetFilters,  setAddress, setSubmitCallback, setResetCallback, setChangeFiltersCallback} from'./form.js';
-import {setLoadCallback, createMarkers, setMoveCallback, resetMap, MinPriceLodging} from './map.js';
-import {getFilteredAds} from "./filters.js";
+import {setLoadCallback, createMarkers, setMoveCallback, resetMap, MinPriceLodging, removeMarkers} from './map.js';
+import {getFilteredAds} from './filters.js';
 import {debounce} from './util.js';
 import {loadData, sendData} from './fetch.js';
 import {showError, showSuccess, errorShowMessage} from './messages.js';
@@ -14,19 +14,29 @@ setLoadCallback(() => {
   activateForm();
   activateFiltersForm();
   setMoveCallback(setAddress);
-  setAddress(MinPriceLodging);
+  setAddress({
+    lat: MinPriceLodging.LAT,
+    lng: MinPriceLodging.LNG,
+  });
   loadData((offers) => {
+    removeMarkers();
     createMarkers(getFilteredAds(offers));
-    const debounceUpdate = debounce(() => createMarkers(offers), DELAY);
+    const debounceUpdate = debounce(() => {
+      removeMarkers();
+      createMarkers(getFilteredAds(offers));
+    }, DELAY);
     setChangeFiltersCallback(debounceUpdate);
+    setResetCallback(() => {
+      resetMap();
+      resetFilters();
+      createMarkers(getFilteredAds(offers));
+      setAddress({
+        lat: MinPriceLodging.LAT,
+        lng: MinPriceLodging.LNG,
+      });
+    });
   },
   () => errorShowMessage('Данные не загружены'));
-});
-
-setResetCallback(() => {
-  resetMap();
-  resetFilters();
-  setAddress(MinPriceLodging);
 });
 
 setSubmitCallback((data) => {
