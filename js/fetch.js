@@ -1,4 +1,4 @@
-const getData = (onSuccess, onError) => {
+const loadData = (onSuccess, onError) => {
   fetch('https://23.javascript.pages.academy/keksobooking/data',
     {
       method: 'GET',
@@ -33,4 +33,4 @@ const sendData = (onSuccess, onError, body) => {
     .catch(() => onError());
 };
 
-export {getData, sendData};
+export {loadData, sendData};

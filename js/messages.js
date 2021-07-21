@@ -1,10 +1,35 @@
 import {isEscEvent} from './util.js';
 
+const ERROR_TIME = 5000;
+
+const errorShowMessage = (message) => {
+  const messageContainer = document.createElement('div');
+  messageContainer.style.position = 'absolute';
+  messageContainer.style.zIndex = '999';
+  messageContainer.style.top = '0';
+  messageContainer.style.left = '0';
+  messageContainer.style.right = '0';
+  messageContainer.style.padiing = '30px 30px';
+  messageContainer.style.fontSize = '30px';
+  messageContainer.style.textAlign = 'center';
+  messageContainer.style.fontWeight = 'bold';
+  messageContainer.style.color = '#FF0000';
+  messageContainer.style.backgroundColor = 'rgba(255,255,255, 0.5)';
+
+  messageContainer.textContent = message;
+
+  document.body.append(messageContainer);
+
+  setTimeout(() => {
+    messageContainer.remove();
+  }, ERROR_TIME);
+};
+
 const errorTemplate = document.querySelector('#error')
   .content
   .querySelector('.error');
 
-const seccessTemplate = document.querySelector('#success')
+const successTemplate = document.querySelector('#success')
   .content
   .querySelector('.success');
 
@@ -28,9 +53,9 @@ const onErrorButtonClick = (evt) => {
 
 const showError = () => {
   const errorMessage = errorTemplate.cloneNode(true);
-  const errorButoon = errorMessage.querySelector('.error__button');
+  const errorButton = errorMessage.querySelector('.error__button');
   document.body.appendChild(errorMessage);
-  errorButoon.addEventListener('click', onErrorButtonClick);
+  errorButton.addEventListener('click', onErrorButtonClick);
   document.addEventListener('keydown', onEscErrorPress);
 };
 
@@ -53,11 +78,11 @@ const onSuccessButtonClick = (evt) => {
 };
 
 const showSuccess = () => {
-  const successMessage = seccessTemplate.cloneNode(true);
+  const successMessage = successTemplate.cloneNode(true);
   document.body.appendChild(successMessage);
   successMessage.addEventListener('mousedown', onSuccessButtonClick);
   document.addEventListener('keydown', onEscSuccessPress);
 };
 
-export {showError, showSuccess};
+export {showError, showSuccess, errorShowMessage};
 

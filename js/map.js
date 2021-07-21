@@ -1,9 +1,9 @@
-import {createCard} from './lodging.js';
+import {createCard} from './create-card.js';
 import {getCheckedOption} from './filters.js';
 
 const MAX_ADVERTS = 10;
 
-const CENTER_TOKYO = {
+const MinPriceLodging = {
   lat: 35.6894,
   lng: 139.692,
 };
@@ -14,13 +14,13 @@ const MAIN_ICON_SIZES = [52, 52];
 const MAIN_ANCHOR_SIZES = [26, 52];
 const NORMAL_ICON_URL = './img/pin.svg';
 const NORMAL_ICON_SIZES = [40, 40];
-const NOPMAL_ANCHOR_SIZES = [20, 40];
+const NORMAL_ANCHOR_SIZES = [20, 40];
 
 
 const map = L.map('map-canvas')
   .setView({
-    lat: CENTER_TOKYO.lat,
-    lng: CENTER_TOKYO.lng,
+    lat: MinPriceLodging.lat,
+    lng: MinPriceLodging.lng,
   }, TOKYO_ZOOM);
 
 const setLoadCallback = (callback) => {
@@ -48,8 +48,8 @@ const mainPinIcon = L.icon(
 
 const mainPinMarker = L.marker(
   {
-    lat: 35.6894,
-    lng: 139.692,
+    lat: MinPriceLodging.lat,
+    lng: MinPriceLodging.lng,
   },
   {
     draggable: true,
@@ -76,7 +76,7 @@ const createMarkers = (adverts) => {
       const normalIcon = L.icon({
         iconUrl: NORMAL_ICON_URL,
         iconSize: NORMAL_ICON_SIZES,
-        iconAnchor: NOPMAL_ANCHOR_SIZES,
+        iconAnchor: NORMAL_ANCHOR_SIZES,
       });
 
       const marker = L.marker(
@@ -104,15 +104,15 @@ const createMarkers = (adverts) => {
 const resetMap = () => {
   mainPinMarker.setLatLng(
     {
-      lat: CENTER_TOKYO.lat,
-      lng: CENTER_TOKYO.lng,
+      lat: MinPriceLodging.lat,
+      lng: MinPriceLodging.lng,
     },
   );
   map.setView(
     {
-      lat: CENTER_TOKYO.lat,
-      lng: CENTER_TOKYO.lng,
+      lat: MinPriceLodging.lat,
+      lng: MinPriceLodging.lng,
     }, TOKYO_ZOOM);
 };
 
-export {createMarkers, setLoadCallback, setMoveCallback, resetMap, CENTER_TOKYO};
+export {createMarkers, setLoadCallback, setMoveCallback, resetMap, MinPriceLodging};
