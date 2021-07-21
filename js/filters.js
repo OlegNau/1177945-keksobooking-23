@@ -40,7 +40,8 @@ const checkFeatures = (features = []) => {
   return checkedFeatures.every((checkedFeature) => features.includes(checkedFeature));
 };
 
+const getFilteredAds = (adverts) => {
+  return adverts.filter(advert => checkType(advert.offer.type) && checkPrice(advert.offer.price) && checkRooms(advert.offer.rooms) && checkGuests(advert.offer.guests) && checkFeatures(advert.offer.features));
+};
 
-const getCheckedOption = (adverts) => checkType(adverts.offer.type) && checkPrice(adverts.offer.price) && checkRooms(adverts.offer.rooms) && checkGuests(adverts.offer.guests) && checkFeatures(adverts.offer.features);
-
-export {getCheckedOption};
+export {getFilteredAds};

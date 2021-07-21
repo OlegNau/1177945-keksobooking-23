@@ -1,12 +1,6 @@
 import {createCard} from './create-card.js';
-import {getCheckedOption} from './filters.js';
 
 const MAX_ADVERTS = 10;
-
-const MinPriceLodging = {
-  lat: 35.6894,
-  lng: 139.692,
-};
 const TOKYO_ZOOM = 12;
 
 const MAIN_ICON_URL = './img/main-pin.svg';
@@ -16,11 +10,15 @@ const NORMAL_ICON_URL = './img/pin.svg';
 const NORMAL_ICON_SIZES = [40, 40];
 const NORMAL_ANCHOR_SIZES = [20, 40];
 
+const MinPriceLodging = {
+  LAT: 35.6894,
+  LNG: 139.692,
+};
 
 const map = L.map('map-canvas')
   .setView({
-    lat: MinPriceLodging.lat,
-    lng: MinPriceLodging.lng,
+    lat: MinPriceLodging.LAT,
+    lng: MinPriceLodging.LNG,
   }, TOKYO_ZOOM);
 
 const setLoadCallback = (callback) => {
@@ -48,8 +46,8 @@ const mainPinIcon = L.icon(
 
 const mainPinMarker = L.marker(
   {
-    lat: MinPriceLodging.lat,
-    lng: MinPriceLodging.lng,
+    lat: MinPriceLodging.LAT,
+    lng: MinPriceLodging.LNG,
   },
   {
     draggable: true,
@@ -70,9 +68,10 @@ const setMoveCallback = (callback) => {
 
 const createMarkers = (adverts) => {
   const markersArray = [];
-
+  if (adverts.length > MAX_ADVERTS) {
+    adverts = adverts.slice(0, MAX_ADVERTS);
+  };
   adverts.forEach((advert) => {
-    if (getCheckedOption(advert)) {
       const normalIcon = L.icon({
         iconUrl: NORMAL_ICON_URL,
         iconSize: NORMAL_ICON_SIZES,
@@ -91,27 +90,26 @@ const createMarkers = (adverts) => {
 
       marker.bindPopup(createCard(advert));
       markersArray.push(marker);
-    }
   });
 
   if (markers) {
     markers.clearLayers();
   }
 
-  markers = L.featureGroup(markersArray.slice(0, MAX_ADVERTS)).addTo(map);
+  markers.addTo(map);
 };
 
 const resetMap = () => {
   mainPinMarker.setLatLng(
     {
-      lat: MinPriceLodging.lat,
-      lng: MinPriceLodging.lng,
+      lat: MinPriceLodging.LAT,
+      lng: MinPriceLodging.LNG,
     },
   );
   map.setView(
     {
-      lat: MinPriceLodging.lat,
-      lng: MinPriceLodging.lng,
+      lat: MinPriceLodging.LAT,
+      lng: MinPriceLodging.LNG,
     }, TOKYO_ZOOM);
 };
 

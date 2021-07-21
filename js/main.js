@@ -1,5 +1,6 @@
 import {deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, resetFilters,  setAddress, setSubmitCallback, setResetCallback, setChangeFiltersCallback} from'./form.js';
 import {setLoadCallback, createMarkers, setMoveCallback, resetMap, MinPriceLodging} from './map.js';
+import {getFilteredAds} from "./filters.js";
 import {debounce} from './util.js';
 import {loadData, sendData} from './fetch.js';
 import {showError, showSuccess, errorShowMessage} from './messages.js';
@@ -15,7 +16,7 @@ setLoadCallback(() => {
   setMoveCallback(setAddress);
   setAddress(MinPriceLodging);
   loadData((offers) => {
-    createMarkers(offers);
+    createMarkers(getFilteredAds(offers));
     const debounceUpdate = debounce(() => createMarkers(offers), DELAY);
     setChangeFiltersCallback(debounceUpdate);
   },
