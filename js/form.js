@@ -30,51 +30,47 @@ const resetButton = document.querySelector('.ad-form__reset');
 
 const deactivateForm = () => {
   adForm.classList.add('ad-form--disabled');
-  for (let index = 0; index < formFieldsets.length; index++) {
-    formFieldsets.disabled = true;
-  }
+  formFieldsets.forEach((element) => {
+    element.disabled = true;
+  });
 };
 
 const deactivateFiltersForm = () => {
   mapFeatures.disabled = true;
   mapFilter.classList.add('map__filters--disabled');
-  for (let index = 0; index < mapFilters.length; index++) {
-    mapFilters.disabled = true;
-  }
+  mapFilters.forEach((element) => {
+    element.disabled = true;
+  });
 };
 
 const activateForm = () => {
   adForm.classList.remove('ad-form--disabled');
-  for (let index = 0; index < formFieldsets.length; index++) {
-    formFieldsets.disabled = false;
-  }
+  formFieldsets.forEach((element) => {
+    element.disabled = false;
+  });
 };
 
 const activateFiltersForm = () => {
   mapFilter.classList.remove('map__filters--disabled');
   mapFeatures.disabled = false;
-  for (let index = 0; index < mapFilters.length; index++) {
-    mapFilters.disabled = false;
-  }
+  mapFilters.forEach((element) => {
+    element.disabled = false;
+  });
 };
 
 const deleteBorderError = () => {
   const validInputs = adForm.querySelectorAll('input:not(:invalid), select:not(:invalid)');
 
-  for (let index = 0; index < validInputs.length; index++) {
-    validInputs[index].classList.remove('ad-form__element--invalid-input');
-  }
+  validInputs.forEach((element) => {
+    element.classList.remove('ad-form__element--invalid-input');
+  });
 };
 
 const validateGuestNumber = () => {
   const roomsValue = +roomsNumber.value;
   const guestsValue = +guestsNumber.value;
   const availableValues = guestRestrictions[roomsValue];
-  if (availableValues.includes(guestsValue)) {
-    guestsNumber.setCustomValidity('');
-  } else {
-    guestsNumber.setCustomValidity('Недопустимое количество гостей');
-  }
+  availableValues.includes(guestsValue) ? guestsNumber.setCustomValidity('') : guestsNumber.setCustomValidity('Недопустимое количество гостей');
 };
 
 const disableGuestOptions = () => {
@@ -173,15 +169,17 @@ adForm.addEventListener('input', () => {
 
 const addBorderError = () => {
   const invalidInputs = adForm.querySelectorAll('input:invalid, select:invalid');
-  for (let index = 0; index < invalidInputs.length; index++) {
-    invalidInputs[index].classList.add('ad-form__element--invalid-input');
-  }
+  invalidInputs.forEach((element) => {
+    element.classList.add('ad-form__element--invalid-input');
+  });
 };
 
 formButton.addEventListener('click', () => {
   validateGuestNumber();
   addBorderError();
 });
+
+insertMinPrise();
 
 export{deactivateForm, deactivateFiltersForm, activateForm, activateFiltersForm, resetFilters, setAddress, setResetCallback,  setSubmitCallback, setChangeFiltersCallback};
 

@@ -1,8 +1,7 @@
 const cardTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
-
-function getType(type) {
+const getType = (type) => {
   if (type === 'flat') {
     return 'Квартира';
   } else if (type === 'bungalow') {
@@ -14,7 +13,7 @@ function getType(type) {
   } else if (type === 'hotel') {
     return'Отель';
   }
-}
+};
 
 const createFeatures = (features) => {
   const fragment = document.createDocumentFragment();
@@ -43,26 +42,35 @@ const createPhotos = (photoArray) => {
 
 const createCard = (ad) => {
   const cardElement = cardTemplate.cloneNode(true);
-  cardElement.querySelector('.popup__title').textContent = ad.offer.title;
-  cardElement.querySelector('.popup__text--address').textContent = ad.offer.address;
-  cardElement.querySelector('.popup__text--price').textContent = `${ad.offer.price} ₽/ночь`;
-  cardElement.querySelector('.popup__type').textContent = getType(ad.offer.type);
-  cardElement.querySelector('.popup__text--capacity').textContent = `${ad.offer.rooms} комнаты для ${ad.offer.guests} гостей`;
-  cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${ad.offer.checkin}, выезд до ${ad.offer.checkout}`;
+  cardElement.querySelector('.popup__title').textContent = ad.offer.title || '';
+  cardElement.querySelector('.popup__text--address').textContent = ad.offer.address || '';
+  cardElement.querySelector('.popup__text--price').textContent = ad.offer.price ? `${ad.offer.price} ₽/ночь` : '';
+  cardElement.querySelector('.popup__type').textContent = getType(ad.offer.type) || '';
+  cardElement.querySelector('.popup__text--capacity').textContent = Number.isInteger(ad.offer.rooms) && Number.isInteger(ad.offer.guests) ?
+    `${ad.offer.rooms} комнаты для ${ad.offer.guests} гостей` : '';
+  cardElement.querySelector('.popup__text--time').textContent = ad.offer.checkin && ad.offer.checkout ?
+    `Заезд после ${ad.offer.checkin}, выезд до ${ad.offer.checkout}` : '';
   const featureList = cardElement.querySelector('.popup__features');
   featureList.innerHTML = '';
   if (ad.offer.features) {
     const featuresElements = createFeatures(ad.offer.features);
     featureList.appendChild(featuresElements);
   }
-  cardElement.querySelector('.popup__description').textContent = ad.offer.description;
+  cardElement.querySelector('.popup__description').textContent = ad.offer.description || '';
   const photosList = cardElement.querySelector('.popup__photos');
   photosList.innerHTML = '';
   if (ad.offer.photos) {
     const photoElements = createPhotos(ad.offer.photos);
     photosList.appendChild(photoElements);
   }
-  cardElement.querySelector('.popup__avatar').src = ad.author.avatar;
+  cardElement.querySelector('.popup__avatar').src = ad.author.avatar || '';
+
+  [...cardElement.children].forEach((child) => {
+    if (!child.innerHTML) {
+      child.remove();
+    }
+  });
+
   return cardElement;
 };
 

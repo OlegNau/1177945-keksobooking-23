@@ -25,7 +25,7 @@ const typeFilter = document.querySelector('#housing-type');
 const priceFilter = document.querySelector('#housing-price');
 const roomsFilter = document.querySelector('#housing-rooms');
 const guestsFilter = document.querySelector('#housing-guests');
-const featuresFilter = document.querySelectorAll('.map__checkbox');
+const featuresFilters = document.querySelectorAll('.map__checkbox');
 
 const checkType = (adverts) => typeFilter.value === DEFAULT_VALUE || adverts === typeFilter.value;
 const checkPrice = (adverts) => priceFilter.value === DEFAULT_VALUE || (adverts >= priceValue[priceFilter.value].MIN && adverts <= priceValue[priceFilter.value].MAX);
@@ -34,7 +34,7 @@ const checkGuests = (adverts) => guestsFilter.value === DEFAULT_VALUE || adverts
 
 const checkFeatures = (features = []) => {
   const checkedFeatures = [];
-  featuresFilter.forEach((feature) => {
+  featuresFilters.forEach((feature) => {
     if (feature.checked) {
       checkedFeatures.push(feature.value);
     }

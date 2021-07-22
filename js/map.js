@@ -93,6 +93,7 @@ const removeMarkers = () => {
 };
 
 const resetMap = () => {
+  removeMarkers();
   mainPinMarker.setLatLng(
     {
       lat: MinPriceLodging.LAT,

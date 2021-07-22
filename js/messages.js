@@ -49,13 +49,13 @@ const onEscErrorPress = (evt) => {
 const onErrorButtonClick = (evt) => {
   evt.preventDefault();
   closeErrorMessage();
+  document.removeEventListener('keydown', onEscErrorPress);
 };
 
 const showError = () => {
   const errorMessage = errorTemplate.cloneNode(true);
-  const errorButton = errorMessage.querySelector('.error__button');
   document.body.appendChild(errorMessage);
-  errorButton.addEventListener('click', onErrorButtonClick);
+  errorMessage.addEventListener('click', onErrorButtonClick);
   document.addEventListener('keydown', onEscErrorPress);
 };
 

@@ -11,14 +11,14 @@ deactivateForm();
 deactivateFiltersForm();
 
 setLoadCallback(() => {
-  activateForm();
-  activateFiltersForm();
   setMoveCallback(setAddress);
   setAddress({
     lat: MinPriceLodging.LAT,
     lng: MinPriceLodging.LNG,
   });
   loadData((offers) => {
+    activateForm();
+    activateFiltersForm();
     removeMarkers();
     createMarkers(getFilteredAds(offers));
     const debounceUpdate = debounce(() => {
