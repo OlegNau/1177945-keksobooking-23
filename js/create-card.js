@@ -1,6 +1,7 @@
 const cardTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
+
 const getType = (type) => {
   if (type === 'flat') {
     return 'Квартира';
