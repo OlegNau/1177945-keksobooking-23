@@ -45,6 +45,7 @@ setSubmitCallback((data) => {
       showSuccess();
       resetMap();
       resetFilters();
+      createMarkers(getFilteredAds(offers));
       setAddress({
         lat: MinPriceLodging.LAT,
         lng: MinPriceLodging.LNG,

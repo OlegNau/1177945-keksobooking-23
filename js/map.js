@@ -58,7 +58,7 @@ const setMoveCallback = (callback) => {
   mainPinMarker
     .on('moveend', (evt) => {
       const latLng = evt.target.getLatLng();
-      const address = {lat:`${latLng.lat.toFixed(5)}`, lng:`${latLng.lng.toFixed(5)}`};
+      const address = {lat:`${latLng.lat.toFixed(4)}`, lng:`${latLng.lng.toFixed(4)}`};
       callback(address);
     });
 };
