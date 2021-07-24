@@ -34,24 +34,23 @@ setLoadCallback(() => {
         lat: MinPriceLodging.LAT,
         lng: MinPriceLodging.LNG,
       });
+      setSubmitCallback((data) => {
+        sendData (
+          () => {
+            showSuccess();
+            resetMap();
+            resetFilters();
+            createMarkers(getFilteredAds(offers));
+            setAddress({
+              lat: MinPriceLodging.LAT,
+              lng: MinPriceLodging.LNG,
+            });
+          },
+          () => showError(),
+          data,
+        );
+      });
     });
   },
   () => errorShowMessage('Данные не загружены'));
-});
-
-setSubmitCallback((data) => {
-  sendData (
-    () => {
-      showSuccess();
-      resetMap();
-      resetFilters();
-      createMarkers(getFilteredAds(offers));
-      setAddress({
-        lat: MinPriceLodging.LAT,
-        lng: MinPriceLodging.LNG,
-      });
-    },
-    () => showError(),
-    data,
-  );
 });
