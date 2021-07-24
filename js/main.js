@@ -24,7 +24,17 @@ setLoadCallback(() => {
     const debounceUpdate = debounce(() => {
       removeMarkers();
       createMarkers(getFilteredAds(offers));
-    },
+    }, DELAY);
+    setChangeFiltersCallback(debounceUpdate);
+    setResetCallback(() => {
+      resetMap();
+      resetFilters();
+      createMarkers(getFilteredAds(offers));
+      setAddress({
+        lat: MinPriceLodging.LAT,
+        lng: MinPriceLodging.LNG,
+      });
+    });
     setSubmitCallback((data) => {
       sendData (
         () => {
@@ -40,17 +50,6 @@ setLoadCallback(() => {
         () => showError(),
         data,
       );
-    })
-    , DELAY);
-    setChangeFiltersCallback(debounceUpdate);
-    setResetCallback(() => {
-      resetMap();
-      resetFilters();
-      createMarkers(getFilteredAds(offers));
-      setAddress({
-        lat: MinPriceLodging.LAT,
-        lng: MinPriceLodging.LNG,
-      });
     });
   },
   () => errorShowMessage('Данные не загружены'));
