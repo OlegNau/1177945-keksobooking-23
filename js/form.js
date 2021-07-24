@@ -70,7 +70,8 @@ const validateGuestNumber = () => {
   const roomsValue = +roomsNumber.value;
   const guestsValue = +guestsNumber.value;
   const availableValues = guestRestrictions[roomsValue];
-  availableValues.includes(guestsValue) ? guestsNumber.setCustomValidity('') : guestsNumber.setCustomValidity('Недопустимое количество гостей');
+  const message = availableValues.includes(guestsValue) ? '' : 'Недопустимое количество гостей';
+  guestsNumber.setCustomValidity(message);
 };
 
 const disableGuestOptions = () => {
@@ -109,6 +110,7 @@ const insertMinPrise = () => {
 const resetFilters = () => {
   mapFilter.reset();
   adForm.reset();
+  disableGuestOptions();
 };
 
 const setResetCallback = (callback) => {

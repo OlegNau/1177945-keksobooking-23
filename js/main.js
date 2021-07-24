@@ -41,7 +41,15 @@ setLoadCallback(() => {
 
 setSubmitCallback((data) => {
   sendData (
-    () => showSuccess(),
+    () => {
+      showSuccess();
+      resetMap();
+      resetFilters();
+      setAddress({
+        lat: MinPriceLodging.LAT,
+        lng: MinPriceLodging.LNG,
+      });
+    },
     () => showError(),
     data,
   );

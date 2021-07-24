@@ -75,6 +75,7 @@ const onEscSuccessPress = (evt) => {
 const onSuccessButtonClick = (evt) => {
   evt.preventDefault();
   closeSuccess();
+  document.removeEventListener('keydown', onEscSuccessPress);
 };
 
 const showSuccess = () => {
